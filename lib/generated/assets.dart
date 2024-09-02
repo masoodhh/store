@@ -11,6 +11,9 @@ class Assets {
   static const String fruitOrange = 'lib/assets/images/fruit/orange.jpg';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String libMain = 'lib/main.dart';
+  static const String managerHomeBloc = 'lib/features/home_page/presentation/manager/home_bloc.dart';
+  static const String managerHomeEvent = 'lib/features/home_page/presentation/manager/home_event.dart';
+  static const String managerHomeState = 'lib/features/home_page/presentation/manager/home_state.dart';
   static const String pagesHomePage = 'lib/pages/home_page.dart';
   static const String paramsProducts = 'lib/core/params/products.json';
   static const String presentationPagesHomePage = 'lib/features/home_page/presentation/pages/home_page.dart';
