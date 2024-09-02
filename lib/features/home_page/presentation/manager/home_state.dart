@@ -11,6 +11,25 @@ class HomeLoadedState extends HomeState {
   final List<Category> categories;
 
   HomeLoadedState({required this.products, required this.categories});
+
+  HomeLoadedState copyWith({
+    List<Product>? products,
+    List<Category>? categories,
+  }) {
+    return HomeLoadedState(
+      products: products ?? this.products,
+      categories: categories ?? this.categories,
+    );
+  }
+  factory HomeLoadedState.fromModel({
+    required home_products_model.HomeProductsModel model,required List<Category> categories}) {
+    List<Product> products = [];
+    if (model.products != null) {
+      model.products!.forEach((product) =>
+          products.add(Product.fromModel(product)));
+    }
+    return HomeLoadedState(products:products,categories: categories);
+  }
 }
 
 class Category {
@@ -27,18 +46,17 @@ class Product {
   final String description;
   final int price;
 
-  Product(
-      {required this.image,
-      required this.title,
-      required this.description,
-      required this.price});
+  Product({required this.image,
+    required this.title,
+    required this.description,
+    required this.price});
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  factory Product.fromModel(home_products_model.Product productModel) {
     return Product(
-      image: json['image'],
-      title: json['title'],
-      description: json['description'],
-      price: json['price'],
+        image: productModel.image!,
+        title: productModel.title!,
+        description: productModel.description!,
+        price: productModel.price!
     );
   }
 }

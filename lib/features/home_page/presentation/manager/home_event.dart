@@ -3,7 +3,7 @@ part of 'home_bloc.dart';
 abstract class HomeEvent {}
 
 class ChangeCategoryEvent extends HomeEvent {
-  final Category category;
+  final int categoryId;
 
-  ChangeCategoryEvent(this.category);
+  ChangeCategoryEvent(this.categoryId);
 }
