@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store/features/home_page/domain/entities/produc_entity.dart';
+import 'package:store/features/home_page/presentation/manager/cart/cart_bloc.dart';
+import 'package:store/features/home_page/presentation/manager/cart/cart_event.dart';
+import 'package:store/features/home_page/presentation/manager/cart/cart_state.dart';
 
-class Product extends StatelessWidget {
-  const Product({super.key});
 
+class Product extends StatefulWidget {
+  final ProductEntity product;
+
+  const Product({required this.product, super.key});
+
+  @override
+  State<Product> createState() => _ProductState();
+}
+
+class _ProductState extends State<Product> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        color: Color(0xFF18263E),
+        color: const Color(0xFF18263E),
         child: Container(
           height: double.infinity,
           decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-              color: Colors.white),
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)), color: Colors.white),
           padding: const EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Column(
@@ -22,9 +34,9 @@ class Product extends StatelessWidget {
                 Stack(
                   children: [
                     Hero(
-                        tag: "product1",
-                        child: Image.network(
-                          'https://picsum.photos/200',
+                        tag: "product${widget.product.id}",
+                        child: Image.asset(
+                          widget.product.image,
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: 300,
@@ -39,11 +51,10 @@ class Product extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              border:
-                                  Border.all(width: 1, color: Colors.black12)),
-                          padding: EdgeInsets.all(10),
+                              border: Border.all(width: 1, color: Colors.black12)),
+                          padding: const EdgeInsets.all(10),
                           height: 60,
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back,
                             color: Color(0xFF18263E),
                             size: 30,
@@ -53,41 +64,32 @@ class Product extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Fresh Orange",
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Color(0xFF18263E),
-                          fontWeight: FontWeight.bold),
+                      widget.product.title,
+                      style: TextStyle(fontSize: 30, color: Color(0xFF18263E), fontWeight: FontWeight.bold),
                     ),
                     Row(
                       children: [
                         Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xFF18263E)),
-                            child: Icon(
+                            padding: const EdgeInsets.all(5),
+                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF18263E)),
+                            child: const Icon(
                               Icons.remove,
                               color: Colors.white,
                             )),
-                        SizedBox(width: 10),
-                        Text("1Kg",
+                        const SizedBox(width: 10),
+                        const Text("1Kg",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF18263E),
-                                fontSize: 20)),
-                        SizedBox(width: 10),
+                                fontWeight: FontWeight.bold, color: Color(0xFF18263E), fontSize: 20)),
+                        const SizedBox(width: 10),
                         Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xFF18263E)),
-                            child: Icon(
+                            padding: const EdgeInsets.all(5),
+                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF18263E)),
+                            child: const Icon(
                               Icons.add,
                               color: Colors.white,
                             ))
@@ -95,26 +97,17 @@ class Product extends StatelessWidget {
                     )
                   ],
                 ),
-                Text("Adminitrated in china",
-                    style: TextStyle(color: Colors.grey)),
-                SizedBox(height: 10),
-                Text(
+                const Text("Adminitrated in china", style: TextStyle(color: Colors.grey)),
+                const SizedBox(height: 10),
+                const Text(
                   "Product Description",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xFF18263E),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30, color: Color(0xFF18263E), fontWeight: FontWeight.bold),
                 ),
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel urna at nunc bibendum pulvinar. Donec iaculis, purus non tristique fermentum, tellus velit tristique tellus, in mollis dolor felis nec velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec vel arcu vel justo tincidunt consectetur. Pellentesque habitant morbi',
-                    style: TextStyle(color: Colors.grey)),
-                SizedBox(height: 10),
-                Text(
+                Text(widget.product.description, style: TextStyle(color: Colors.grey)),
+                const SizedBox(height: 10),
+                const Text(
                   "Product Reviews",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xFF18263E),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30, color: Color(0xFF18263E), fontWeight: FontWeight.bold),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,27 +115,23 @@ class Product extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           width: 60,
                           height: 60,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
-                                  image:
-                                      NetworkImage('https://picsum.photos/102'),
-                                  fit: BoxFit.cover),
+                                  image: NetworkImage('https://picsum.photos/102'), fit: BoxFit.cover),
                               shape: BoxShape.circle,
                               color: Colors.blue),
                         ),
-                        SizedBox(width: 10),
-                        Column(
+                        const SizedBox(width: 10),
+                        const Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Victor Hogon",
                               style: TextStyle(
-                                  color: Color(0xFF18263E),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  color: Color(0xFF18263E), fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -158,21 +147,17 @@ class Product extends StatelessWidget {
                         )
                       ],
                     ),
-                    Text("16 septombr 2022",
-                        style: TextStyle(color: Colors.grey, fontSize: 16))
+                    const Text("16 septombr 2022", style: TextStyle(color: Colors.grey, fontSize: 16))
                   ],
                 ),
-                SizedBox(height: 10),
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel urna at nunc bibendum pulvinar.',
                     style: TextStyle(color: Colors.grey)),
-                SizedBox(height: 10),
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                   "Similar Products",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xFF18263E),
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30, color: Color(0xFF18263E), fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -181,7 +166,7 @@ class Product extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
           height: 70,
-          color: Color(0xFF18263E),
+          color: const Color(0xFF18263E),
           child: Container(
               child: Center(
             child: Row(
@@ -190,7 +175,7 @@ class Product extends StatelessWidget {
               children: [
                 RichText(
                     text: TextSpan(
-                        text: "\$15.35",
+                        text: "\$${widget.product.price}",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                         children: [
                       TextSpan(
@@ -198,21 +183,29 @@ class Product extends StatelessWidget {
                         style: TextStyle(color: Colors.grey, fontSize: 18),
                       ),
                     ])),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  padding: EdgeInsets.all(10),
-                  height: 40,
-                  alignment: Alignment.center,
-                  width: 200,
-                  child: Text(
-                    'Add to cart',
-                    style: TextStyle(
-                        color: Color(0xFF18263E),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
+                BlocBuilder<CartBloc, CartState>(
+                  builder: (context, state) {
+                    return GestureDetector(
+                      onTap: state.cart.any((p) => p.id == widget.product.id)
+                          ? () {
+                              BlocProvider.of<CartBloc>(context).add(addProduct(widget.product));
+                            }
+                          : null,
+                      child: Container(
+                        decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
+                        padding: const EdgeInsets.all(10),
+                        height: 40,
+                        alignment: Alignment.center,
+                        width: 200,
+                        child: const Text(
+                          'Add to cart',
+                          style:
+                              TextStyle(color: Color(0xFF18263E), fontWeight: FontWeight.bold, fontSize: 15),
+                        ),
+                      ),
+                    );
+                  },
                 )
               ],
             ),

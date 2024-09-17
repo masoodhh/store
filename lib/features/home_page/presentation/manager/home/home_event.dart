@@ -7,3 +7,4 @@ class ChangeCategoryEvent extends HomeEvent {
 
   ChangeCategoryEvent(this.categoryId);
 }
+class InitializeEvent extends HomeEvent {}

@@ -1,12 +1,5 @@
 part of 'home_bloc.dart';
 
-enum Status {
-  INITIAL,
-  LOADING,
-  SUCCESS,
-  ERROR,
-}
-
 class HomeState {
   CategoryState categoryState;
   ProductState productState;
@@ -22,72 +15,88 @@ class HomeState {
       productState: newProductState ?? productState,
     );
   }
+
+
+  factory HomeState.init() {
+    return HomeState(
+        categoryState: CategoryState(categories: [], status: Status.INITIAL),
+        productState: ProductState(products: [], status: Status.INITIAL));
+  }
 }
 
+class ProductState {
+  final List<ProductEntity> products;
+  Status status;
 
-@immutable
-abstract class CategoryState {}
+  ProductState({required this.products, required this.status});
 
-@immutable
-abstract class ProductState {}
+  ProductState copyWith({
+    List<ProductEntity>? newProducts,
+    Status? newStatus,
+  }) {
+    return ProductState(
+      products: newProducts ?? products,
+      status: newStatus ?? status,
+    );
+  }
 
-class ProductInitState extends ProductState {}
-
-class ProductLoadingState extends ProductState {}
-
-class ProductLoadedState extends ProductState {
-  final List<Product> products;
-
-  ProductLoadedState({required this.products});
-
-  factory ProductLoadedState.fromModel(
-      {required home_products_model.HomeProductsModel model}) {
-    List<Product> products = [];
+/*
+  factory ProductState.fromModel(
+      {required Status status,
+      required home_products_model.HomeProductsModel model}) {
+    List<ProductEntity> products = [];
     if (model.products != null) {
       model.products!
           .forEach((product) => products.add(Product.fromModel(product)));
     }
-    return ProductLoadedState(products: products);
+    return ProductState(products: products, status: status);
   }
+*/
 }
 
-class CategoryInitState extends CategoryState {}
+class CategoryState {
+  final List<CategoryEntity> categories;
+  Status status;
 
-class CategoryLoadingState extends CategoryState {}
+  CategoryState({required this.categories, required this.status});
 
-class CategoryLoadedState extends CategoryState {
-  List<Category> categories;
-
-  CategoryLoadedState({required this.categories});
+  CategoryState copyWith({
+    List<CategoryEntity>? newCategories,
+    Status? newStatus,
+  }) {
+    return CategoryState(
+      categories: newCategories ?? categories,
+      status: newStatus ?? status,
+    );
+  }
 
 //todo: بین دو متد زیر هر کدام بهتر بود نگه دار
 // این متد استیت کنکونی را تغییر میدهد
-  OnChanged(int categoryId) {
-    categories.forEach((category) {
-      category.id == categoryId
-          ? category.isChecked = true
-          : category.isChecked = false;
-    });
-    return CategoryLoadedState;
+  OnChanged(int categoryId, Status status) {
+    for (var category in categories) {
+      category.id == categoryId ? category.isChecked = true : category.isChecked = false;
+    }
+    return CategoryState(status: status, categories: categories);
   }
 
-//این متد یک کانستراکتور است
-  CategoryLoadedState changeSelect(int categoryId) {
+/*//این متد یک کانستراکتور است
+  CategoryState changeSelect(int categoryId) {
     //ToDo: باید تست شه که درست کار میکنه یا نه و اگر نشد باید یک متغییر جدید ساخته بشه
-    List<Category> newCategories = [];
+    List<CategoryEntity> newCategories = [];
     categories.forEach((category) {
       if (category.id == categoryId) {
-        newCategories.add(
-            Category(id: category.id, title: category.title, isChecked: true));
+        newCategories.add(CategoryEntity(
+            id: category.id, title: category.title, isChecked: true));
       } else {
-        newCategories.add(
-            Category(id: category.id, title: category.title, isChecked: false));
+        newCategories.add(CategoryEntity(
+            id: category.id, title: category.title, isChecked: false));
       }
     });
-    return CategoryLoadedState(categories: categories);
-  }
+    return CategoryState(categories: newCategories, status: status);
+  }*/
 // TODO:هنوز کتگوری مدل را نساختم
 }
+/*
 
 class Category {
   final int id;
@@ -124,3 +133,4 @@ class Product {
         price: productModel.price!);
   }
 }
+*/
