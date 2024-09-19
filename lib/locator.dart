@@ -6,6 +6,8 @@ import 'package:store/features/home_page/domain/use_cases/get_products_by_catego
 import 'package:store/features/home_page/presentation/manager/cart/cart_bloc.dart';
 import 'package:store/features/home_page/presentation/manager/home/home_bloc.dart';
 
+import 'features/home_page/presentation/manager/tab/tab_cubit.dart';
+
 GetIt locator = GetIt.instance;
 
 setup() async {
@@ -18,4 +20,5 @@ setup() async {
   // ! State Managers
   locator.registerSingleton<HomeBloc>(HomeBloc(locator(), locator()));
   locator.registerSingleton<CartBloc>(CartBloc());
+  locator.registerSingleton<TabCubit>(TabCubit());
 }
