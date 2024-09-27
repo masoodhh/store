@@ -38,14 +38,19 @@ dependencies:
   wrapbuilder: ^0.0.1
   flutter_bloc: ^8.1.6
   bloc: ^8.1.4
-  get_it: ^7.7.0
+  get_it: ^8.0.0
   logger: ^2.4.0
   flutter_slidable: ^3.1.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  smooth_page_indicator: ^1.2.0+3
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.12
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

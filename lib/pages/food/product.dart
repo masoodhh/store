@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store/features/home_page/domain/entities/produc_entity.dart';
-import 'package:store/features/home_page/presentation/manager/cart/cart_bloc.dart';
+import 'package:store/core/manager/cart/cart_bloc.dart';
 
 class Product extends StatefulWidget {
   final ProductEntity product;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:store/features/home_page/presentation/manager/cart/cart_bloc.dart';
+import 'package:store/core/manager/cart/cart_bloc.dart';
 import 'package:store/features/home_page/presentation/widgets/header_widget.dart';
 
 import '../../../../../core/params/params.dart';

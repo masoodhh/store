@@ -1,11 +1,11 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:store/features/home_page/presentation/manager/cart/cart_bloc.dart';
+import 'package:store/core/manager/cart/cart_bloc.dart';
 import 'package:store/features/home_page/presentation/widgets/header_widget.dart';
+import 'package:store/features/cart_page/presentation/pages/check_out_page.dart';
 
-import '../../../domain/entities/cart_entity.dart';
+import '../../../home_page/domain/entities/cart_entity.dart';
 
 class CartTab extends StatefulWidget {
   const CartTab({super.key});
@@ -15,41 +15,56 @@ class CartTab extends StatefulWidget {
 }
 
 class _CartTabState extends State<CartTab> {
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 30),
-            HeaderWidget(),
-            const SizedBox(height: 20),
-            _buildCarts(),
-          ],
+    return Scaffold(
+      body: SizedBox(
+        width: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              HeaderWidget(),
+              const SizedBox(height: 20),
+              _buildCarts(),
+            ],
+          ),
         ),
       ),
+      bottomNavigationBar: _buildTotalPrice(),
     );
   }
 
   Widget _buildCarts() {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
-        return ListView(shrinkWrap: true, physics: NeverScrollableScrollPhysics(), children: [
-          for (CartEntity cart in state.cart) _build_list_item(cart, context),
-        ]);
+        if (state.cart.isEmpty)
+          return Center(
+              child: Text(
+            "محصولی در سبد خرید موجود نیست.",
+            textDirection: TextDirection.rtl,
+            style: TextStyle(color: Color(0xFF18263E), fontSize: 20, fontWeight: FontWeight.bold),
+          ));
+        return SlidableAutoCloseBehavior(
+          closeWhenOpened: true,
+          closeWhenTapped: true,
+          child: ListView(shrinkWrap: true, physics: NeverScrollableScrollPhysics(), children: [
+            for (CartEntity cart in state.cart) _build_list_item(cart, context),
+          ]),
+        );
       },
     );
   }
 
   Widget _build_list_item(CartEntity cart, BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
       // padding: EdgeInsets.all(15),
 
       child: Slidable(
+        closeOnScroll: true,
+        groupTag: '0',
         key: ValueKey(cart.id),
         endActionPane: ActionPane(
           // A motion is a widget used to control how the pane animates.
@@ -76,7 +91,7 @@ class _CartTabState extends State<CartTab> {
               icon: Icons.delete,
               label: 'Delete',
               borderRadius: BorderRadius.circular(10),
-            ),
+            )
           ],
         ),
         child: Container(
@@ -84,7 +99,7 @@ class _CartTabState extends State<CartTab> {
           // margin: EdgeInsets.symmetric(vertical: 10),
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
             color: Colors.grey[100],
           ),
           child: Row(
@@ -167,6 +182,67 @@ class _CartTabState extends State<CartTab> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTotalPrice() {
+    return Container(
+      height: 150,
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Container(
+            height: 60,
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.grey[100],
+            ),
+            child: Center(
+              child: BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  return Text(
+                    "Total Price \$${state.totalPrice}",
+                    style: TextStyle(color: Color(0xFF18263E), fontSize: 18, fontWeight: FontWeight.bold),
+                  );
+                },
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              return InkWell(
+                onTap: () {
+                  if (!state.cart.isEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CheckOutPage()),
+                    );
+                  }
+                },
+                child: Container(
+                  height: 60,
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Color(0xFF18263E),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "CheckOut",
+                      style: TextStyle(
+                          color: state.cart.isEmpty ? Colors.grey : Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              );
+            },
+          )
+        ],
       ),
     );
   }

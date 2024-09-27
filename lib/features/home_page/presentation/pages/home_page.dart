@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store/features/home_page/presentation/manager/home/home_bloc.dart';
 import 'package:store/features/home_page/presentation/manager/tab/tab_cubit.dart';
-import 'package:store/features/home_page/presentation/widgets/tabs/cart_tab.dart';
+import 'package:store/features/cart_page/presentation/pages/cart_tab.dart';
 import 'package:store/features/home_page/presentation/widgets/tabs/orders_tab.dart';
+import 'package:store/features/search_page/presentation/pages/search_page.dart';
 
 import '../widgets/tabs/home_tab.dart';
 
@@ -15,12 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final PageController _pageController ;
+  late final PageController _pageController;
 
   @override
   void initState() {
     super.initState();
-    _pageController= PageController(initialPage: 0);
+    _pageController = PageController(initialPage: 0);
     BlocProvider.of<TabCubit>(context).changeTab(0);
     BlocProvider.of<HomeBloc>(context).add(InitializeEvent());
   }
@@ -46,31 +47,19 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(10),
         child: PageView(
           controller: _pageController,
-          children: [
-            HomeTab(),
-            OrdersTab(),
-            CartTab(),
-            _buildGiftPage(),
+          children:  [
+            const HomeTab(),
+            const OrdersTab(),
+            const CartTab(),
+            _gifsTab(),
           ],
         ),
       ),
     );
   }
 
-  /*Widget _buildHomePage() {
-    // Return the existing home page content
-  }*/
-
-  Widget _buildProfilePage() {
-    return Container(
-      child: Center(child: Text("profile")),
-    );
-  }
-
-  Widget _buildGiftPage() {
-    return Container(
-      child: Center(child: Text("gifts")),
-    );
+  Widget _gifsTab() {
+    return const Center(child: Text("Gift Tab", style: TextStyle(fontSize: 40, color: Colors.black),),);
   }
 
   Widget _buildBottomNavigationBar() {
@@ -87,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                 _buildBottomNavItem(0, _pageController, state == 0, Icons.home, "Home"),
                 _buildBottomNavItem(1, _pageController, state == 1, Icons.list, "Orders"),
                 _buildBottomNavItem(2, _pageController, state == 2, Icons.shopping_cart, "My Cart"),
-                _buildBottomNavItem(3, _pageController, state == 3, Icons.gif_box, "Gift"),
+                _buildBottomNavItem(3, _pageController, state == 3, Icons.search, "Search"),
               ],
             );
           },
@@ -96,8 +85,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildBottomNavItem(
-      int index, PageController pageController, bool selected, IconData icon, String title) {
+  Widget _buildBottomNavItem(int index, PageController pageController, bool selected, IconData icon,
+      String title) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -106,7 +95,7 @@ class _HomePageState extends State<HomePage> {
         },
         child: Container(
           color: Colors.transparent,
-          margin: EdgeInsets.symmetric(horizontal: 3),
+          margin: const EdgeInsets.symmetric(horizontal: 3),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
