@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
-import 'package:store/features/home_page/presentation/widgets/header_widget.dart';
+import 'package:store/features/home_page/presentation/widgets/header.widget.dart';
 
+import '../../../../../core/params/colors.dart';
 import '../../../../../core/params/params.dart';
 import '../../../domain/entities/cart_entity.dart';
 
@@ -71,13 +72,13 @@ class _OrdersTabState extends State<OrdersTab> {
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: selected ? const Color(0xFF18263E) : Colors.grey[100],
+            color: selected ?  MyColors.primaryColor :  MyColors.primaryBackgroundColor,
           ),
           child: Center(
             child: Text(
               title,
               style: TextStyle(
-                color: selected ? Colors.white : const Color(0xFF18263E),
+                color: selected ? Colors.white :  MyColors.primaryColor,
                 fontSize: 15,
               ),
             ),
@@ -97,7 +98,7 @@ class _OrdersTabState extends State<OrdersTab> {
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.grey[100],
+                color:  MyColors.primaryBackgroundColor,
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -123,7 +124,7 @@ class _OrdersTabState extends State<OrdersTab> {
                         children: [
                           Text(
                             cart.title,
-                            style: TextStyle(color: const Color(0xFF18263E), fontSize: 20),
+                            style: TextStyle(color:  MyColors.primaryColor, fontSize: 20),
                           ),
                           Text(
                             '12/12/2022',
@@ -156,7 +157,7 @@ class _OrdersTabState extends State<OrdersTab> {
                       child: Text(
                         "Proccessing",
                         style: TextStyle(
-                          color: const Color(0xFF18263E),
+                          color:  MyColors.primaryColor,
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),

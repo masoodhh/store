@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:store/features/home_page/domain/entities/produc_entity.dart';
+import 'package:store/features/home_page/domain/entities/product_entity.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
 import 'package:store/features/home_page/presentation/manager/home/home_bloc.dart';
-import 'package:store/features/home_page/presentation/widgets/header_widget.dart';
+import 'package:store/features/home_page/presentation/widgets/header.widget.dart';
 import 'package:store/pages/food/product.dart';
 
 import 'package:store/core/params/params.dart';
+
+import '../../../../../core/params/colors.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -94,12 +96,12 @@ class _HomeTabState extends State<HomeTab> {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: selected ? const Color(0xFF18263E) : Colors.grey[100],
+          color: selected ?  MyColors.primaryColor :  MyColors.primaryBackgroundColor,
         ),
         child: Text(
           title,
           style: TextStyle(
-            color: selected ? Colors.white : const Color(0xFF18263E),
+            color: selected ? Colors.white :  MyColors.primaryColor,
             fontSize: 15,
           ),
         ),
@@ -118,7 +120,7 @@ class _HomeTabState extends State<HomeTab> {
             const Text(
               "Popular Fruits",
               style: TextStyle(
-                color: Color(0xFF18263E),
+                color: MyColors.primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -170,7 +172,7 @@ class _HomeTabState extends State<HomeTab> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.grey[100],
+          color:  MyColors.primaryBackgroundColor,
         ),
         padding: const EdgeInsets.all(15),
         width: MediaQuery.of(context).size.width / 2 - 15,
@@ -189,7 +191,7 @@ class _HomeTabState extends State<HomeTab> {
               product.title,
               style: const TextStyle(
                 fontSize: 20,
-                color: Color(0xFF18263E),
+                color: MyColors.primaryColor,
                 fontWeight: FontWeight.bold,
               ),
             ),

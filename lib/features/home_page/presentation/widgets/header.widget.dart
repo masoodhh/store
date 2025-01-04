@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:store/features/search_page/presentation/pages/search_page.dart';
 
+import '../../../../core/params/colors.dart';
+
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
 
@@ -45,7 +47,7 @@ class HeaderWidget extends StatelessWidget {
         height: 80,
         child: const Icon(
           Icons.search,
-          color: Color(0xFF18263E),
+          color: MyColors.primaryColor,
           size: 40,
         ),
       ),

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
-import 'package:store/features/home_page/presentation/widgets/header_widget.dart';
+import 'package:store/features/home_page/presentation/widgets/header.widget.dart';
 import 'package:store/features/cart_page/presentation/pages/check_out_page.dart';
 
+import '../../../../core/params/colors.dart';
 import '../../../home_page/domain/entities/cart_entity.dart';
 
 class CartTab extends StatefulWidget {
@@ -44,7 +45,7 @@ class _CartTabState extends State<CartTab> {
               child: Text(
             "محصولی در سبد خرید موجود نیست.",
             textDirection: TextDirection.rtl,
-            style: TextStyle(color: Color(0xFF18263E), fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
           ));
         return SlidableAutoCloseBehavior(
           closeWhenOpened: true,
@@ -100,7 +101,7 @@ class _CartTabState extends State<CartTab> {
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: Colors.grey[100],
+            color:  MyColors.primaryBackgroundColor,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -126,7 +127,7 @@ class _CartTabState extends State<CartTab> {
                     children: [
                       Text(
                         cart.title,
-                        style: TextStyle(color: const Color(0xFF18263E), fontSize: 20),
+                        style: TextStyle(color: MyColors.primaryColor, fontSize: 20),
                       ),
                       RichText(
                         text: TextSpan(
@@ -154,14 +155,14 @@ class _CartTabState extends State<CartTab> {
                     },
                     child: const Icon(
                       Icons.add,
-                      color: const Color(0xFF18263E),
+                      color: MyColors.primaryColor,
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xFF18263E),
+                      color: MyColors.primaryColor,
                     ),
                     child: Text(
                       cart.count.toString(),
@@ -174,7 +175,7 @@ class _CartTabState extends State<CartTab> {
                     },
                     child: const Icon(
                       Icons.remove,
-                      color: const Color(0xFF18263E),
+                      color: MyColors.primaryColor,
                     ),
                   ),
                 ]),
@@ -197,14 +198,14 @@ class _CartTabState extends State<CartTab> {
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.grey[100],
+              color:  MyColors.primaryBackgroundColor,
             ),
             child: Center(
               child: BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
                   return Text(
                     "Total Price \$${state.totalPrice}",
-                    style: TextStyle(color: Color(0xFF18263E), fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: MyColors.primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
                   );
                 },
               ),
@@ -227,7 +228,7 @@ class _CartTabState extends State<CartTab> {
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Color(0xFF18263E),
+                    color: MyColors.primaryColor,
                   ),
                   child: Center(
                     child: Text(

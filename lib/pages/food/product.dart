@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:store/features/home_page/domain/entities/produc_entity.dart';
+import 'package:store/features/home_page/domain/entities/product_entity.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
+
+import '../../core/params/colors.dart';
 
 class Product extends StatefulWidget {
   final ProductEntity product;
@@ -20,7 +22,7 @@ class _ProductState extends State<Product> {
       child: Scaffold(
         body: Container(
           width: double.infinity,
-          color: const Color(0xFF18263E),
+          color: MyColors.primaryColor,
           child: Container(
             height: double.infinity,
             decoration: const BoxDecoration(
@@ -61,7 +63,7 @@ class _ProductState extends State<Product> {
             tag: "product${widget.product.id}",
             child: Image.asset(
               widget.product.image,
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               width: double.infinity,
               height: 300,
             )),
@@ -80,7 +82,7 @@ class _ProductState extends State<Product> {
               height: 60,
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF18263E),
+                color: MyColors.primaryColor,
                 size: 30,
               ),
             ),
@@ -96,24 +98,24 @@ class _ProductState extends State<Product> {
       children: [
         Text(
           widget.product.title,
-          style: TextStyle(fontSize: 30, color: Color(0xFF18263E), fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 30, color: MyColors.primaryColor, fontWeight: FontWeight.bold),
         ),
         Row(
           children: [
             Container(
                 padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF18263E)),
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: MyColors.primaryColor),
                 child: const Icon(
                   Icons.remove,
                   color: Colors.white,
                 )),
             const SizedBox(width: 10),
             const Text("1Kg",
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF18263E), fontSize: 20)),
+                style: TextStyle(fontWeight: FontWeight.bold, color: MyColors.primaryColor, fontSize: 20)),
             const SizedBox(width: 10),
             Container(
                 padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF18263E)),
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: MyColors.primaryColor),
                 child: const Icon(
                   Icons.add,
                   color: Colors.white,
@@ -134,7 +136,7 @@ class _ProductState extends State<Product> {
       children: [
         const Text(
           "Product Description",
-          style: TextStyle(fontSize: 30, color: Color(0xFF18263E), fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 30, color: MyColors.primaryColor, fontWeight: FontWeight.bold),
         ),
         Text(widget.product.description, style: TextStyle(color: Colors.grey)),
       ],
@@ -147,7 +149,7 @@ class _ProductState extends State<Product> {
       children: [
         const Text(
           "Product Reviews",
-          style: TextStyle(fontSize: 30, color: Color(0xFF18263E), fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 30, color: MyColors.primaryColor, fontWeight: FontWeight.bold),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,7 +172,8 @@ class _ProductState extends State<Product> {
                   children: [
                     const Text(
                       "Victor Hogon",
-                      style: TextStyle(color: Color(0xFF18263E), fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,7 +207,7 @@ class _ProductState extends State<Product> {
       children: [
         const Text(
           "Similar Products",
-          style: TextStyle(fontSize: 30, color: Color(0xFF18263E), fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 30, color: MyColors.primaryColor, fontWeight: FontWeight.bold),
         ),
         // Add similar products here
       ],
@@ -214,7 +217,7 @@ class _ProductState extends State<Product> {
   Widget _buildBottomNavigationBar() {
     return Container(
       height: 70,
-      color: const Color(0xFF18263E),
+      color: MyColors.primaryColor,
       child: Container(
         child: Center(
           child: Row(
@@ -252,7 +255,8 @@ class _ProductState extends State<Product> {
                       width: 200,
                       child: Text(
                         state.cart.any((p) => p.id == widget.product.id) ? 'Remove from cart' : 'Add to cart',
-                        style: TextStyle(color: Color(0xFF18263E), fontWeight: FontWeight.bold, fontSize: 15),
+                        style: TextStyle(
+                            color: MyColors.primaryColor, fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ),
                   );

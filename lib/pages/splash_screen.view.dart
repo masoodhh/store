@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:store/features/home_page/presentation/pages/home_page.dart';
-import 'package:store/pages/introduction_page.dart';
+import 'package:store/features/home_page/presentation/pages/page_wrapper.view.dart';
+import 'package:store/pages/welcome.view.dart';
+import 'package:store/pages/register.view.dart';
+
+import '../core/params/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  static const routeName = '/';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -21,18 +26,12 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? isFirstTime = prefs.getBool('isFirstTime');
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     if (isFirstTime == null || isFirstTime == true) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => IntroductionPage()),
-      );
+      Navigator.pushReplacementNamed(context, WelcomePage.routeName);
     } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      Navigator.pushReplacementNamed(context, PageWrapper.routeName);
     }
   }
 
@@ -44,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: const Center(
           child: Text(
             "Splash Screen",
-            style: TextStyle(color: Color(0xFF18263E), fontWeight: FontWeight.w800, fontSize: 40),
+            style: TextStyle(color: MyColors.primaryColor, fontWeight: FontWeight.w800, fontSize: 40),
           ),
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:store/core/resources/data_state.dart';
-import 'package:store/features/home_page/domain/entities/produc_entity.dart';
+import 'package:store/features/home_page/domain/entities/product_entity.dart';
 import 'package:store/features/home_page/domain/repositories/home_products_repository.dart';
 
 import '../../../../core/use_case/use_case.dart';

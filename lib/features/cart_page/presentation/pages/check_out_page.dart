@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
 import 'package:store/features/cart_page/presentation/manager/checkout/checkout_bloc.dart';
 
+import '../../../../core/params/colors.dart';
+
 class CheckOutPage extends StatefulWidget {
   const CheckOutPage({super.key});
 
@@ -37,7 +39,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
 AppBar _buildAppBar(BuildContext context) {
   return AppBar(
     toolbarHeight: 110,
-    backgroundColor: const Color(0xFF18263E),
+    backgroundColor:  MyColors.primaryColor,
     title: const Text(
       "CheckOut",
       style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
@@ -60,11 +62,11 @@ Widget _buildBody(BuildContext context) {
   return Container(
     width: double.infinity,
     height: double.infinity,
-    color: const Color(0xFF18263E),
+    color:  MyColors.primaryColor,
     child: Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-        color: Colors.grey[100],
+        color:  MyColors.primaryBackgroundColor,
       ),
       padding: const EdgeInsets.all(10),
       child: SingleChildScrollView(
@@ -94,7 +96,7 @@ Widget _buildAddress(BuildContext context) {
               children: [
                 const Text(
                   "Address",
-                  style: TextStyle(color: Color(0xFF18263E), fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -140,7 +142,7 @@ Widget _buildPayment(BuildContext context) {
               children: [
                 const Text(
                   "Payment",
-                  style: TextStyle(color: Color(0xFF18263E), fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -175,7 +177,7 @@ Widget _buildTitle(String title, String addText, BuildContext context) {
     children: [
       Text(
         title,
-        style: const TextStyle(color: Color(0xFF18263E), fontSize: 20, fontWeight: FontWeight.bold),
+        style: const TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       GestureDetector(
         onTap: () {
@@ -206,12 +208,12 @@ Widget _buildAddressItem(
               children: [
                 Icon(
                   icon,
-                  color: const Color(0xFF18263E),
+                  color:  MyColors.primaryColor,
                 ),
                 const SizedBox(width: 10),
                 Text(
                   title,
-                  style: const TextStyle(color: Color(0xFF18263E), fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: MyColors.primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -250,12 +252,12 @@ Widget _buildPaymentItem(
               children: [
                 Icon(
                   icon,
-                  color: const Color(0xFF18263E),
+                  color:  MyColors.primaryColor,
                 ),
                 const SizedBox(width: 10),
                 Text(
                   title,
-                  style: const TextStyle(color: Color(0xFF18263E), fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: MyColors.primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -282,7 +284,7 @@ Widget _buildPaymentItem(
 Widget _buildTotalPrice() {
   return Container(
     height: 120,
-    color: Colors.grey[100],
+    color:  MyColors.primaryBackgroundColor,
     padding: const EdgeInsets.all(10),
     child: Column(
       children: [
@@ -291,7 +293,7 @@ Widget _buildTotalPrice() {
             builder: (context, state) {
               return Text(
                 "Total Price \$${state.totalPrice}",
-                style: const TextStyle(color: Color(0xFF18263E), fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(color: MyColors.primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
               );
             },
           ),
@@ -302,7 +304,7 @@ Widget _buildTotalPrice() {
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: const Color(0xFF18263E),
+            color:  MyColors.primaryColor,
           ),
           child: const Center(
             child: Text(
@@ -344,7 +346,7 @@ void addCard(BuildContext context) {
               children: [
                 const Text(
                   "Add a Card",
-                  style: TextStyle(color: Color(0xFF18263E), fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: MyColors.primaryColor, fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 Container(
                   width: 40,
@@ -501,7 +503,7 @@ void addCard(BuildContext context) {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: const Color(0xFF18263E),
+                  color:  MyColors.primaryColor,
                 ),
                 child: const Center(
                   child: Text(
@@ -544,7 +546,7 @@ void addAddress(BuildContext context) {
               children: [
                 const Text(
                   "Add an Address",
-                  style: TextStyle(color: Color(0xFF18263E), fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: MyColors.primaryColor, fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 Container(
                   width: 40,
@@ -636,7 +638,7 @@ void addAddress(BuildContext context) {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: const Color(0xFF18263E),
+                  color:  MyColors.primaryColor,
                 ),
                 child: const Center(
                   child: Text(

@@ -2,7 +2,7 @@
 class Assets {
   Assets._();
 
-  static const String foodHomePage = 'lib/pages/food/home_page.dart';
+  static const String foodHomePage = 'lib/pages/food/page_wrapper.view.dart';
   static const String foodProduct = 'lib/pages/food/product.dart';
   static const String fruitApple = 'lib/assets/images/fruit/apple.png';
   static const String fruitFruits = 'lib/assets/images/fruit/fruits.png';
@@ -14,8 +14,8 @@ class Assets {
   static const String managerHomeBloc = 'lib/features/home_page/presentation/manager/home_bloc.dart';
   static const String managerHomeEvent = 'lib/features/home_page/presentation/manager/home_event.dart';
   static const String managerHomeState = 'lib/features/home_page/presentation/manager/home_state.dart';
-  static const String pagesHomePage = 'lib/pages/home_page.dart';
+  static const String pagesHomePage = 'lib/pages/page_wrapper.view.dart';
   static const String paramsProducts = 'lib/core/params/products.json';
-  static const String presentationPagesHomePage = 'lib/features/home_page/presentation/pages/home_page.dart';
+  static const String presentationPagesHomePage = 'lib/features/home_page/presentation/pages/page_wrapper.view.dart';
 
 }

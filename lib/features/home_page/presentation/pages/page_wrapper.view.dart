@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store/features/home_page/presentation/manager/home/home_bloc.dart';
-import 'package:store/features/home_page/presentation/manager/tab/tab_cubit.dart';
+import 'package:store/features/home_page/presentation/manager/wrapper/wrapper.cubit.dart';
 import 'package:store/features/cart_page/presentation/pages/cart_tab.dart';
-import 'package:store/features/home_page/presentation/widgets/tabs/orders_tab.dart';
-import 'package:store/features/search_page/presentation/pages/search_page.dart';
+import 'package:store/features/home_page/presentation/pages/tabs/home_tab.view.dart';
+import 'package:store/features/home_page/presentation/pages/tabs/orders_tab.view.dart';
 
-import '../widgets/tabs/home_tab.dart';
+import '../../../../core/params/colors.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class PageWrapper extends StatefulWidget {
+  const PageWrapper({super.key});
+
+  static const routeName = '/home';
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PageWrapper> createState() => _PageWrapperState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PageWrapperState extends State<PageWrapper> {
   late final PageController _pageController;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
-    BlocProvider.of<TabCubit>(context).changeTab(0);
+    BlocProvider.of<WrapperCubit>(context).changeTab(0);
     BlocProvider.of<HomeBloc>(context).add(InitializeEvent());
   }
 
@@ -38,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: const Color(0xFF18263E),
+      color: MyColors.primaryColor,
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
@@ -47,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(10),
         child: PageView(
           controller: _pageController,
-          children:  [
+          children: [
             const HomeTab(),
             const OrdersTab(),
             const CartTab(),
@@ -59,15 +61,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _gifsTab() {
-    return const Center(child: Text("Gift Tab", style: TextStyle(fontSize: 40, color: Colors.black),),);
+    return const Center(
+      child: Text(
+        "Gift Tab",
+        style: TextStyle(fontSize: 40, color: Colors.black),
+      ),
+    );
   }
 
   Widget _buildBottomNavigationBar() {
     return Container(
       height: 70,
-      color: const Color(0xFF18263E),
+      color: MyColors.primaryColor,
       child: Center(
-        child: BlocBuilder<TabCubit, int>(
+        child: BlocBuilder<WrapperCubit, int>(
           builder: (context, state) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -85,12 +92,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildBottomNavItem(int index, PageController pageController, bool selected, IconData icon,
-      String title) {
+  Widget _buildBottomNavItem(
+      int index, PageController pageController, bool selected, IconData icon, String title) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          BlocProvider.of<TabCubit>(context).changeTab(index);
+          BlocProvider.of<WrapperCubit>(context).changeTab(index);
           pageController.jumpToPage(index);
         },
         child: Container(

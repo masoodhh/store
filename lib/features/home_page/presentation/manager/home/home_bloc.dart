@@ -4,7 +4,7 @@ import 'package:store/features/home_page/domain/use_cases/get_categories_usecase
 import 'package:store/features/home_page/domain/use_cases/get_products_by_category_usecase.dart';
 import '../../../../../core/params/params.dart';
 import '../../../domain/entities/category_entity.dart';
-import '../../../domain/entities/produc_entity.dart';
+import '../../../domain/entities/product_entity.dart';
 import '../../../../../core/resources/data_state.dart';
 
 part 'home_event.dart';

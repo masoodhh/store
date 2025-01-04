@@ -3,7 +3,7 @@ import 'package:store/features/home_page/data/data_sources/data_provider.dart';
 import 'package:store/features/home_page/data/models/category_model.dart';
 import 'package:store/features/home_page/data/models/home_products_model.dart';
 import 'package:store/features/home_page/domain/entities/category_entity.dart';
-import 'package:store/features/home_page/domain/entities/produc_entity.dart';
+import 'package:store/features/home_page/domain/entities/product_entity.dart';
 
 import '../../domain/repositories/home_products_repository.dart';
 

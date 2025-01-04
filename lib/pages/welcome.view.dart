@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:store/features/home_page/presentation/pages/home_page.dart';
+import 'package:store/features/home_page/presentation/pages/page_wrapper.view.dart';
 
-class IntroductionPage extends StatefulWidget {
-  const IntroductionPage({super.key});
+import '../core/params/colors.dart';
+
+class WelcomePage extends StatefulWidget {
+  const WelcomePage({super.key});
+  static const routeName = '/welcome';
 
   @override
-  State<IntroductionPage> createState() => _IntroductionPageState();
+  State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _IntroductionPageState extends State<IntroductionPage> {
+class _WelcomePageState extends State<WelcomePage> {
   late final PageController _pageController;
 
   @override
@@ -29,7 +32,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color(0xFF18263E),
+        color:  MyColors.primaryColor,
         child: Column(
           children: [
             Expanded(
@@ -144,7 +147,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                           _changePref();
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => const HomePage()),
+                            MaterialPageRoute(builder: (context) => const PageWrapper()),
                           );
                         } else {
                           _pageController.animateToPage(
@@ -164,7 +167,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                         child: const Text(
                           'Continue',
                           style:
-                              TextStyle(color: Color(0xFF18263E), fontWeight: FontWeight.bold, fontSize: 15),
+                              TextStyle(color: MyColors.primaryColor, fontWeight: FontWeight.bold, fontSize: 15),
                         ),
                       ),
                     )

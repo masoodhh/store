@@ -17,6 +17,6 @@ setup() async {
   // ! State Managers
   locator.registerSingleton<HomeBloc>(HomeBloc(locator(), locator()));
   locator.registerSingleton<CartBloc>(CartBloc());
-  locator.registerSingleton<TabCubit>(TabCubit());
+  locator.registerSingleton<WrapperCubit>(WrapperCubit());
   locator.registerSingleton<CheckoutBloc>(CheckoutBloc());
 }

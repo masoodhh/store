@@ -1,4 +1,4 @@
-import 'package:store/features/home_page/domain/entities/produc_entity.dart';
+import 'package:store/features/home_page/domain/entities/product_entity.dart';
 
 class ProductModel extends ProductEntity {
   ProductModel(
