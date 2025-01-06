@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 
+import '../../../features/home/domain/entities/cart_entity.dart';
 import '../../params/params.dart';
-import '../../../features/home_page/domain/entities/cart_entity.dart';
 
 part 'cart_event.dart';
 

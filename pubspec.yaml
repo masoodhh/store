@@ -45,7 +45,8 @@ dependencies:
   hive_flutter: ^1.1.0
   smooth_page_indicator: ^1.2.0+3
   shared_preferences: ^2.3.2
-
+  syncfusion_flutter_sliders: ^27.2.5
+  syncfusion_flutter_charts: ^27.2.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -103,6 +104,6 @@ flutter:
     - lib/assets/images/
     - lib/assets/
     - lib/assets/images/fruit/
-    - lib/features/home_page/data/data_sources/home_products.json
-    - lib/features/home_page/data/data_sources/home_products2.json
-    - lib/features/home_page/data/data_sources/home_categories.json
+    - lib/features/home/data/data_sources/home_products.json
+    - lib/features/home/data/data_sources/home_products2.json
+    - lib/features/home/data/data_sources/home_categories.json

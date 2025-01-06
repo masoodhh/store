@@ -9,14 +9,16 @@ setup() async {
   Hive.registerAdapter(PaymentCardEntityAdapter());
 
   // ! Repositories
-  locator.registerSingleton<HomeProductsRepository>(HomeProductsRepositoryImplLocal());
+  locator.registerSingleton<HomeRepository>(HomeRepositoryImplLocal());
 
   // ! UseCases
   locator.registerSingleton<GetProductsByCategoryUsecase>(GetProductsByCategoryUsecase(locator()));
   locator.registerSingleton<GetCategoriesUsecase>(GetCategoriesUsecase(locator()));
+  locator.registerSingleton<GetSearchedProductsUsecase>(GetSearchedProductsUsecase(locator()));
   // ! State Managers
-  locator.registerSingleton<HomeBloc>(HomeBloc(locator(), locator()));
+  locator.registerSingleton<HomeBloc>(HomeBloc());
+  locator.registerSingleton<SearchBloc>(SearchBloc());
   locator.registerSingleton<CartBloc>(CartBloc());
-  locator.registerSingleton<WrapperCubit>(WrapperCubit());
+  locator.registerSingleton<PageWrapperCubit>(PageWrapperCubit());
   locator.registerSingleton<CheckoutBloc>(CheckoutBloc());
 }

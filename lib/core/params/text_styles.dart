@@ -15,7 +15,7 @@ class MyTextStyles {
   static const textfield = TextStyle(fontSize: 17, fontWeight: FontWeight.normal, color: Colors.black);
 
   static const small = TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey);
-  static const headline = TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black);
+  static const headline = TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey);
   static const title = TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black);
 
   static const chat = TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white);
