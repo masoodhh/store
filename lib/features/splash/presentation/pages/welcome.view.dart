@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:store/features/auth/presentation/pages/register.view.dart';
 
 import '../../../../core/params/colors.dart';
+import '../../../../core/params/text_styles.dart';
 import '../../../../core/widgets/spacer.widget.dart';
 import '../../../home/presentation/pages/page_wrapper.view.dart';
 
@@ -75,20 +77,20 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: const EdgeInsets.all(20),
                             child: Column(
                               children: [
-                                const Text(
+                                 Text(
                                   "Welcome to Grocery Shop 1",
                                   textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                                  style: MyTextStyles.header.copyWith(color: Colors.white),
                                 ),
                                 SpacerV(20),
-                                const Text(
+                                 Text(
                                   "Emdark on a culdry journery whit fresh ingegment brouth right in your tulchain.",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: MyTextStyles.caption.copyWith(color: Colors.white54),
+                                  /*style: TextStyle(
                                     color: Colors.white54,
                                     fontSize: 20,
-                                  ),
+                                  ),*/
                                 ),
                                 Expanded(child: Container()),
                               ],
@@ -98,20 +100,17 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: const EdgeInsets.all(20),
                             child: Column(
                               children: [
-                                const Text(
+                                 Text(
                                   "Welcome to Grocery Shop 2",
                                   textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                                    style: MyTextStyles.header.copyWith(color: Colors.white),
+
                                 ),
                                 SpacerV(20),
-                                const Text(
+                                 Text(
                                   "Emdark on a culdry journery whit fresh ingegment brouth right in your tulchain.",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white54,
-                                    fontSize: 20,
-                                  ),
+                                  style: MyTextStyles.caption.copyWith(color: Colors.white54),
                                 ),
                                 Expanded(child: Container()),
                               ],
@@ -121,20 +120,16 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: const EdgeInsets.all(20),
                             child: Column(
                               children: [
-                                const Text(
+                                 Text(
                                   "Welcome to Grocery Shop 3",
                                   textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                                  style: MyTextStyles.header.copyWith(color: Colors.white),
                                 ),
                                 SpacerV(20),
-                                const Text(
+                                 Text(
                                   "Emdark on a culdry journery whit fresh ingegment brouth right in your tulchain.",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white54,
-                                    fontSize: 20,
-                                  ),
+                                   style: MyTextStyles.caption.copyWith(color: Colors.white54),
                                 ),
                                 Expanded(child: Container()),
                               ],
@@ -147,10 +142,8 @@ class _WelcomePageState extends State<WelcomePage> {
                       onTap: () {
                         if (_pageController.page!.round() > 1) {
                           _changePref();
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => const PageWrapper()),
-                          );
+                          Navigator.pushReplacementNamed(context, RegisterPage.routeName);
+                          // Navigator.pushReplacementNamed(context, PageWrapper.routeName);
                         } else {
                           _pageController.animateToPage(
                             _pageController.page!.round() + 1,
@@ -166,10 +159,9 @@ class _WelcomePageState extends State<WelcomePage> {
                         margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                         height: 50,
                         alignment: Alignment.center,
-                        child: const Text(
+                        child:  Text(
                           'Continue',
-                          style: TextStyle(
-                              color: MyColors.primaryColor, fontWeight: FontWeight.bold, fontSize: 15),
+                          style: MyTextStyles.button.copyWith(color: MyColors.primaryColor), //TextStyles.),
                         ),
                       ),
                     )

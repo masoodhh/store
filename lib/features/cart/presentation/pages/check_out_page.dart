@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
+import 'package:store/features/home/presentation/pages/page_wrapper.view.dart';
 
 import '../../../../core/params/colors.dart';
 import '../../../../core/widgets/spacer.widget.dart';
@@ -285,7 +286,9 @@ Widget _buildTotalPrice(BuildContext context) {
         const SizedBox(height: 10),
         InkWell(
           onTap: () {
+            Navigator.pushReplacementNamed(context, PageWrapper.routeName);
             BlocProvider.of<CheckoutBloc>(context).add(confirmCheckoutEvent());
+            BlocProvider.of<CartBloc>(context).add(clearCart());
           },
           child: Container(
             height: 60,
@@ -308,6 +311,11 @@ Widget _buildTotalPrice(BuildContext context) {
 }
 
 void addCard(BuildContext context) {
+  final TextEditingController _paymentTitleController = TextEditingController();
+  final TextEditingController _paymentCvvController = TextEditingController();
+  final TextEditingController _paymentCardNumberController = TextEditingController();
+  final TextEditingController _paymentDateController = TextEditingController();
+
   showModalBottomSheet(
     context: context,
     isDismissible: false,
@@ -317,11 +325,7 @@ void addCard(BuildContext context) {
       borderRadius: BorderRadius.vertical(top: Radius.circular(30)), // گوشه‌های گرد در بالای دیالوگ
     ),
     builder: (BuildContext context) {
-      final TextEditingController _paymenttitleController = TextEditingController();
-      final TextEditingController _paymentCvvController = TextEditingController();
-      final TextEditingController _paymentCardNumberController = TextEditingController();
-      final TextEditingController _paymentDateController = TextEditingController();
-      return Container(
+       return Container(
         height: 450, // ارتفاع دیالوگ
         padding: const EdgeInsets.all(16), // فاصله داخلی
         decoration: const BoxDecoration(
@@ -370,8 +374,7 @@ void addCard(BuildContext context) {
                   const SizedBox(width: 10), // فاصله بین لیبل و فیلد
                   Expanded(
                     child: TextField(
-                      controller: _paymenttitleController,
-                      keyboardType: TextInputType.number, // فقط ورودی عدد
+                      controller: _paymentTitleController,
                       decoration: const InputDecoration(
                         border: InputBorder.none, // حذف حاشیه TextField
                       ),
@@ -458,7 +461,7 @@ void addCard(BuildContext context) {
                               ),
                               onSubmitted: (value) {
                                 BlocProvider.of<CheckoutBloc>(context).add(addPaymentCardEvent(
-                                    title: _paymenttitleController.text,
+                                    title: _paymentTitleController.text,
                                     card_number: _paymentCardNumberController.text,
                                     date: _paymentDateController.text,
                                     CVV: int.parse(_paymentCvvController.text),
@@ -480,7 +483,7 @@ void addCard(BuildContext context) {
             InkWell(
               onTap: () {
                 BlocProvider.of<CheckoutBloc>(context).add(addPaymentCardEvent(
-                    title: _paymenttitleController.text,
+                    title: _paymentTitleController.text,
                     card_number: _paymentCardNumberController.text,
                     date: _paymentDateController.text,
                     CVV: int.parse(_paymentCvvController.text),
@@ -510,6 +513,8 @@ void addCard(BuildContext context) {
 }
 
 void addAddress(BuildContext context) {
+  final TextEditingController _addressTitleController = TextEditingController();
+  final TextEditingController _addressAddressController = TextEditingController();
   showModalBottomSheet(
     context: context,
     isDismissible: false,
@@ -519,9 +524,7 @@ void addAddress(BuildContext context) {
       borderRadius: BorderRadius.vertical(top: Radius.circular(30)), // گوشه‌های گرد در بالای دیالوگ
     ),
     builder: (BuildContext context) {
-      final TextEditingController _addressTitleController = TextEditingController();
-      final TextEditingController _addressAddressController = TextEditingController();
-      return Container(
+     return Container(
         height: 450, // ارتفاع دیالوگ
         padding: const EdgeInsets.all(16), // فاصله داخلی
         decoration: const BoxDecoration(
@@ -571,7 +574,6 @@ void addAddress(BuildContext context) {
                   Expanded(
                     child: TextField(
                       controller: _addressTitleController,
-                      keyboardType: TextInputType.number, // فقط ورودی عدد
                       decoration: const InputDecoration(
                         border: InputBorder.none, // حذف حاشیه TextField
                       ),

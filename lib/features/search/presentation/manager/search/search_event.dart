@@ -3,22 +3,18 @@ part of 'search_bloc.dart';
 abstract class SearchEvent {}
 
 class InicialEvent extends SearchEvent {}
+
 class ChangeSearchTextEvent extends SearchEvent {
   final String text;
 
   ChangeSearchTextEvent(this.text);
 }
 
-class ChangeSearchMinPriceEvent extends SearchEvent {
+class ChangeSearchPriceEvent extends SearchEvent {
+  final double maxPrice;
   final double minPrice;
 
-  ChangeSearchMinPriceEvent(this.minPrice);
-}
-
-class ChangeSearchMaxPriceEvent extends SearchEvent {
-  final double maxPrice;
-
-  ChangeSearchMaxPriceEvent(this.maxPrice);
+  ChangeSearchPriceEvent({required this.minPrice, required this.maxPrice});
 }
 
 class ChangeSearchCategoryEvent extends SearchEvent {

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
 import 'package:store/core/params/params.dart';
-import 'package:store/features/cart/presentation/manager/checkout/checkout_bloc.dart';
+import 'package:store/core/params/text_styles.dart';
 import 'package:store/features/product/presentation/pages/product.dart';
 import 'package:store/features/search/presentation/manager/search/search_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import '../../../../core/params/colors.dart';
 import '../../../../core/widgets/spacer.widget.dart';
+import '../../../../logger.dart';
 import '../../../home/domain/entities/product_entity.dart';
 import '../../../home/presentation/manager/home/home_bloc.dart';
 
@@ -27,6 +27,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
+    BlocProvider.of<SearchBloc>(context).add(InicialEvent());
     super.initState();
   }
 
@@ -92,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
                 color: Colors.white,
               ),
               padding: const EdgeInsets.all(10),
-              child: SingleChildScrollView(child: _buildProductList()),
+              child: _buildProductList(),
             ),
           )
         ],
@@ -110,7 +111,11 @@ class _SearchPageState extends State<SearchPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<SearchBloc>().add(ChangeSearchTextEvent(_searchController.text));
+                context.read<SearchBloc>().add(ConfirmSearchEvent());
+                _searchController.clear();
+              },
               icon: const Icon(
                 Icons.search,
                 color: Colors.black45,
@@ -119,7 +124,6 @@ class _SearchPageState extends State<SearchPage> {
           Expanded(
               child: TextField(
             controller: _searchController,
-            onChanged: (value) => BlocProvider.of<SearchBloc>(context).add(ChangeSearchTextEvent(value)),
             style: const TextStyle(color: Colors.black54, fontSize: 20),
             decoration: const InputDecoration(
               border: InputBorder.none,
@@ -140,22 +144,44 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildProductList() {
-    return BlocBuilder<HomeBloc, HomeState>(
-      buildWhen: (previous, current) => previous.productState.status != current.productState.status,
+    return BlocBuilder<SearchBloc, SearchState>(
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        if (state.productState.status == Status.SUCCESS) {
-          return Wrap(
-            direction: Axis.horizontal,
-            alignment: WrapAlignment.spaceBetween,
-            runAlignment: WrapAlignment.spaceBetween,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            runSpacing: 15,
-            children: [
-              for (ProductEntity product in state.productState.products) _buildProductWidget(product),
-            ],
+        if (state.status == Status.SUCCESS) {
+          return SingleChildScrollView(
+            child: Wrap(
+              direction: Axis.horizontal,
+              alignment: WrapAlignment.spaceBetween,
+              runAlignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              runSpacing: 15,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Center(
+                    child: Text(
+                      "Results for your search: ${state.searchFilter.text}",
+                      style: MyTextStyles.header3,
+                    ),
+                  ),
+                ),
+                for (ProductEntity product in state.products) _buildProductWidget(product),
+              ],
+            ),
+          );
+        } else if (state.status == Status.INITIAL) {
+          return const Center(
+            child: Text(
+              "No products found",
+              style: MyTextStyles.header2,
+            ),
+          );
+        } else if (state.status == Status.LOADING) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         } else {
-          return SpacerV(500);
+          return Container();
         }
       },
     );
@@ -264,13 +290,7 @@ class _SearchPageState extends State<SearchPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)), // گوشه‌های گرد در بالای دیالوگ
       ),
       builder: (BuildContext context) {
-        final TextEditingController _paymenttitleController = TextEditingController();
-        final TextEditingController _paymentCvvController = TextEditingController();
-        final TextEditingController _paymentCardNumberController = TextEditingController();
-        final TextEditingController _paymentDateController = TextEditingController();
-
         return Container(
-          height: 650, // ارتفاع دیالوگ
           padding: const EdgeInsets.all(16), // فاصله داخلی
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -302,30 +322,36 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ],
               ),
-              SpacerV(20),
+              const Spacer(),
               const Text(
                 "Price Range",
                 style: TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SfRangeSelector(
-                min: 1000,
-                max: 100000000,
-                initialValues: const SfRangeValues(1000, 100000000),
-                enableTooltip: true,
-                inactiveColor: Colors.transparent,
-                tooltipShape: const SfPaddleTooltipShape(),
-                child: SizedBox(
-                  height: 130,
-                  child: SfCartesianChart(
-                    margin: const EdgeInsets.all(0),
-                    primaryXAxis: const NumericAxis(
-                      minimum: 0,
-                      maximum: 28,
-                      isVisible: false,
-                    ),
-                    primaryYAxis: const NumericAxis(isVisible: false),
-                    series: <ColumnSeries<Data, double>>[
-                      /* ColumnSeries<Data, double>(
+              BlocBuilder<SearchBloc, SearchState>(
+                builder: (context, state) {
+                  return SfRangeSelector(
+                    min: 1000,
+                    max: 100000000,
+                    onChangeEnd: (SfRangeValues value) => context
+                        .read<SearchBloc>()
+                        .add(ChangeSearchPriceEvent(minPrice: value.start, maxPrice: value.end)),
+                    initialValues: SfRangeValues(
+                        state.searchFilter.minPrice ?? 100, state.searchFilter.maxPrice ?? 100000000),
+                    enableTooltip: true,
+                    inactiveColor: Colors.transparent,
+                    tooltipShape: const SfPaddleTooltipShape(),
+                    child: SizedBox(
+                      height: 130,
+                      child: SfCartesianChart(
+                        margin: const EdgeInsets.all(0),
+                        primaryXAxis: const NumericAxis(
+                          minimum: 0,
+                          maximum: 28,
+                          isVisible: false,
+                        ),
+                        primaryYAxis: const NumericAxis(isVisible: false),
+                        series: <ColumnSeries<Data, double>>[
+                          /* ColumnSeries<Data, double>(
 
                           selectionBehavior: SelectionBehavior(
                             selectedColor: Colors.purple,
@@ -360,33 +386,26 @@ class _SearchPageState extends State<SearchPage> {
                           xValueMapper: (Data sales, int index) => sales.x,
                           yValueMapper: (Data sales, int index) => sales.y)
 */
-                      ColumnSeries<Data, double>(
-                          color: Colors.grey.shade300,
-                          dataSource: chartData,
-                          width: 0.5,
-                          xValueMapper: (Data sales, int index) => sales.x,
-                          yValueMapper: (Data sales, int index) => sales.y)
-                    ],
-                  ),
-                ),
+                          ColumnSeries<Data, double>(
+                              color: Colors.grey.shade300,
+                              dataSource: chartData,
+                              width: 0.5,
+                              xValueMapper: (Data sales, int index) => sales.x,
+                              yValueMapper: (Data sales, int index) => sales.y)
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
-
               _buildCategories(),
-              SpacerV(20),
-              const Text(
-                "Recently Search",
-                style: TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
-              ),
               _buildRecentlySearch(),
               Expanded(child: Container()),
               InkWell(
                 onTap: () {
-                  BlocProvider.of<CheckoutBloc>(context).add(addPaymentCardEvent(
-                      title: _paymenttitleController.text,
-                      card_number: _paymentCardNumberController.text,
-                      date: _paymentDateController.text,
-                      CVV: int.parse(_paymentCvvController.text),
-                      icon: Icons.payment));
+                  context.read<SearchBloc>().add(ChangeSearchTextEvent(_searchController.text));
+                  context.read<SearchBloc>().add(ConfirmSearchEvent());
+                  _searchController.clear();
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -413,12 +432,11 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _buildCategories() {
     return BlocBuilder<SearchBloc, SearchState>(
-      buildWhen: (previous, current) => previous.categories.length != current.categories.length,
       builder: (context, state) {
-        if (state.categories.length>0) {
+        if (state.categories.isNotEmpty) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SpacerV(20),
               const Text(
                 "Categories",
                 style: TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
@@ -429,11 +447,8 @@ class _SearchPageState extends State<SearchPage> {
                 child: Row(
                   children: [
                     for (int i = 0; i < state.categories.length; i++)
-                      _buildCategoryWidget(
-                          state.categories[i].id,
-                          state.categories[i].title,
-                          state.categories[i].isChecked,
-                          ChangeSearchCategoryEvent(state.categories[i].id)),
+                      _buildCategoryWidget(state.categories[i].id, state.categories[i].title,
+                          state.categories[i].isChecked, true),
                   ],
                 ),
               ),
@@ -446,10 +461,16 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Widget _buildCategoryWidget(int id, String title, bool selected, event) {
+  Widget _buildCategoryWidget(int? id, String title, bool selected, bool isCategory) {
     return InkWell(
       onTap: () {
-        context.read<HomeBloc>().add(event);
+        if (isCategory) {
+          context.read<SearchBloc>().add(ChangeSearchCategoryEvent(id!));
+        } else {
+          context.read<SearchBloc>().add(ChooseRecentSearchEvent(title));
+          _searchController.text = title;
+        }
+        // BlocProvider.of<SearchBloc>(context).add(event);
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10),
@@ -470,18 +491,60 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildRecentlySearch() {
-    return Wrap(
-      runSpacing: 10,
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (context, state) {
+        if (state.recentlySearches.isNotEmpty) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SpacerV(10),
+              const Text(
+                "Recently Search",
+                style: TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SpacerV(10),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (int i = 0; i < state.recentlySearches.length; i++)
+                      _buildCategoryWidget(null, state.recentlySearches[i], false, false),
+                  ],
+                ),
+              ),
+            ],
+          );
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+
+/*
+  Widget _buildRecentlySearch2() {
+    return Column(
       children: [
-        _buildCategoryWidget(1, "title", true, ChangeCategoryEvent(0)),
-        _buildCategoryWidget(2, "Big title2", false, ChangeCategoryEvent(1)),
-        _buildCategoryWidget(1, "title3", false, ChangeCategoryEvent(2)),
-        _buildCategoryWidget(1, "title4", false, ChangeCategoryEvent(3)),
-        _buildCategoryWidget(1, "title5", false, ChangeCategoryEvent(4)),
-        _buildCategoryWidget(1, "title6", false, ChangeCategoryEvent(5)),
+        SpacerV(20),
+        const Text(
+          "Recently Search",
+          style: TextStyle(color: MyColors.primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        Wrap(
+          runSpacing: 10,
+          children: [
+            _buildCategoryWidget(1, "title", true, ChangeCategoryEvent(0)),
+            _buildCategoryWidget(2, "Big title2", false, ChangeCategoryEvent(1)),
+            _buildCategoryWidget(1, "title3", false, ChangeCategoryEvent(2)),
+            _buildCategoryWidget(1, "title4", false, ChangeCategoryEvent(3)),
+            _buildCategoryWidget(1, "title5", false, ChangeCategoryEvent(4)),
+            _buildCategoryWidget(1, "title6", false, ChangeCategoryEvent(5)),
+          ],
+        ),
       ],
     );
   }
+*/
 }
 
 class Data {

@@ -1,0 +1,51 @@
+[
+  {
+    "id": 3,
+    "title": "Order #12347",
+    "image": "lib/assets/images/fruit/fruits.png",
+    "orderStatuses": [
+      {
+        "title": "Order Placed",
+        "dateTime": "2025-01-03T10:15:00",
+        "description": "Your order has been placed successfully.",
+        "status": true
+      },
+      {
+        "title": "Order Confirmed",
+        "dateTime": "2025-01-03T12:45:00",
+        "description": "Your order has been confirmed.",
+        "status": true
+      },
+      {
+        "title": "Order Shipped",
+        "dateTime": "2025-01-04T08:30:00",
+        "description": "Your order has been shipped.",
+        "status": false
+      },
+      {
+        "title": "Order Delivered",
+        "dateTime": "2025-01-05T14:00:00",
+        "description": "Your order is yet to be delivered.",
+        "status": false
+      }
+    ],
+    "products": [
+      {
+        "id": 105,
+        "image": "lib/assets/images/fruit/gilas.png",
+        "title": "Cherry",
+        "description": "Juicy and sweet cherries.",
+        "price": 25.0,
+        "count": 1
+      },
+      {
+        "id": 106,
+        "image": "lib/assets/images/fruit/apple.png",
+        "title": "Apple",
+        "description": "Crisp and delicious apple.",
+        "price": 35.0,
+        "count": 2
+      }
+    ]
+  }
+]

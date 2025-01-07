@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "title": "Order #12345",
+    "image": "lib/assets/images/fruit/fruits.png",
+    "orderStatuses": [
+      {
+        "title": "Order Placed",
+        "dateTime": "2025-01-01T10:00:00",
+        "description": "Your order has been placed successfully.",
+        "status": true
+      },
+      {
+        "title": "Order Confirmed",
+        "dateTime": "2025-01-01T12:00:00",
+        "description": "Your order has been confirmed.",
+        "status": true
+      },
+      {
+        "title": "Order Shipped",
+        "dateTime": "2025-01-02T08:00:00",
+        "description": "Your order has been shipped.",
+        "status": true
+      },
+      {
+        "title": "Order Delivered",
+        "dateTime": "2025-01-03T16:00:00",
+        "description": "Your order has been delivered.",
+        "status": true
+      }
+    ],
+    "products": [
+      {
+        "id": 101,
+        "image": "lib/assets/images/fruit/apple.png",
+        "title": "Apple",
+        "description": "Fresh red apple.",
+        "price": 50.0,
+        "count": 2
+      },
+      {
+        "id": 102,
+        "image": "lib/assets/images/fruit/orange.jpg",
+        "title": "Orange",
+        "description": "Juicy and sweet orange.",
+        "price": 30.0,
+        "count": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Order #12346",
+    "image": "lib/assets/images/fruit/fruits.png",
+    "orderStatuses": [
+      {
+        "title": "Order Placed",
+        "dateTime": "2025-01-02T09:30:00",
+        "description": "Your order has been placed successfully.",
+        "status": true
+      },
+      {
+        "title": "Order Confirmed",
+        "dateTime": "2025-01-02T11:00:00",
+        "description": "Your order has been confirmed.",
+        "status": true
+      },
+      {
+        "title": "Order Shipped",
+        "dateTime": "2025-01-03T07:00:00",
+        "description": "Your order has been shipped.",
+        "status": true
+      },
+      {
+        "title": "Order Delivered",
+        "dateTime": "2025-01-04T15:30:00",
+        "description": "Your order has been delivered.",
+        "status": true
+      }
+    ],
+    "products": [
+      {
+        "id": 103,
+        "image": "lib/assets/images/fruit/limo.png",
+        "title": "Lemon",
+        "description": "Zesty yellow lemon.",
+        "price": 20.0,
+        "count": 2
+      },
+      {
+        "id": 104,
+        "image": "lib/assets/images/fruit/gilas.png",
+        "title": "Cherry",
+        "description": "Delicious red cherries.",
+        "price": 40.0,
+        "count": 3
+      }
+    ]
+  }
+]

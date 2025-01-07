@@ -5,7 +5,7 @@ class SearchState {
   final SearchFilter searchFilter;
   final List<ProductEntity> products;
   final List<CategoryEntity> categories;
-  final List<String>? recentlySearches;
+  final List<String> recentlySearches;
   final String? message;
 
   SearchState(
@@ -13,7 +13,7 @@ class SearchState {
       required this.products,
       required this.searchFilter,
       this.categories = const [],
-      this.recentlySearches,
+      this.recentlySearches = const [],
       this.message});
 
   SearchState copyWith(
@@ -28,7 +28,7 @@ class SearchState {
       products: newProducts ?? products,
       searchFilter: newSearchFilter != null ? searchFilter._copyWith(newSearchFilter) : searchFilter,
       recentlySearches: newRecentlySearches ?? recentlySearches,
-      categories: newCategories?? categories,
+      categories: newCategories ?? categories,
       message: newMessage,
     );
   }
@@ -45,7 +45,7 @@ class SearchState {
 }
 
 class SearchFilter {
-  final String? text;
+  String? text;
   final bool? isPriceEnabled;
   final double? minPrice;
   final double? maxPrice;

@@ -30,7 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
     if (isFirstTime == null || isFirstTime == true) {
       Navigator.pushReplacementNamed(context, WelcomePage.routeName);
     } else {
-      Navigator.pushReplacementNamed(context, PageWrapper.routeName);
+      Navigator.pushReplacementNamed(context, WelcomePage.routeName);
+      // Navigator.pushReplacementNamed(context, PageWrapper.routeName);
       // Navigator.pushReplacementNamed(context, OrderDetailsPage.routeName);
     }
   }

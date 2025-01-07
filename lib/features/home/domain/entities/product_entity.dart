@@ -1,4 +1,3 @@
-
 import 'cart_entity.dart';
 
 class ProductEntity extends CartEntity {
@@ -7,5 +6,6 @@ class ProductEntity extends CartEntity {
       required super.image,
       required super.title,
       required super.description,
-      required super.price});
+      required super.price,
+      required super.count});
 }

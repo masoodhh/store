@@ -27,6 +27,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   }
 
   void _confirmCheckoutEvent(confirmCheckoutEvent event, Emitter<CheckoutState> emit) async {
+   emit(CheckoutState.init());
     // TODO:
     /*  CartBloc cartBloc = locator();
     final List<CartEntity> products = cartBloc.state.cart;
@@ -61,6 +62,8 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     emit(state.copyWith(
       newAddressStatus: Status.SUCCESS,
       newAddresses: newAddresses,
+      newPaymentCards: newPaymentCards,
+      newPaymentStatus: Status.SUCCESS,
     ));
   }
 

@@ -5,17 +5,14 @@ import '../../../../../../core/use_case/use_case.dart';
 import '../../../home/domain/entities/product_entity.dart';
 import '../../presentation/manager/search/search_bloc.dart';
 
-class GetSearchedProductsUsecase extends UseCase<DataState<List<ProductEntity>>, SearchFilter> {
+class GetRecentlySearchedUsecase extends NoParamUseCase<List<String>> {
   final HomeRepository homeRepository;
 
-  GetSearchedProductsUsecase(this.homeRepository);
+  GetRecentlySearchedUsecase(this.homeRepository);
 
   @override
-  Future<DataState<List<ProductEntity>>> call(SearchFilter param) async {
-    // TODO: implement call
-    final DataState<List<ProductEntity>> dataState =
-        await homeRepository.getSearchedProducts(searchFilter: param);
-
+  Future<List<String>> call() async {
+    final List<String> dataState = await homeRepository.getRecentlySearched();
     return dataState;
   }
 }
