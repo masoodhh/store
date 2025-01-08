@@ -1,6 +1,6 @@
 <div style="direction: rtl; text-align: right;">
 
-# Gronur - فروشگاه آنلاین
+#  فروشگاه 
 
 این پروژه یک اپلیکیشن فروشگاهی آنلاین است که امکان خرید و جستجوی محصولات مختلف مانند میوه‌ها و سبزیجات را فراهم می‌کند. این اپلیکیشن شامل صفحات ورود و ثبت‌نام، نمایش محصولات، جزئیات سفارش و پیگیری وضعیت سفارش‌ها است.
 
@@ -49,7 +49,7 @@
 
 ---
 
-# Gronur - Online Store
+# Store
 
 This is an online grocery store app that allows users to browse and purchase various products such as fruits and vegetables. The app includes login and registration pages, product listings, order details, and order tracking.
 
