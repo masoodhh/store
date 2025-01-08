@@ -21,17 +21,17 @@
 ## اسکرین‌شات‌ها
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-<img src="release/Screenshot_home.png" alt="اسکرین‌شات 1" width="300" />
-<img src="release/Screenshot_cart.png" alt="اسکرین‌شات 2" width="300" />
-<img src="release/Screenshot_checkOut.png" alt="اسکرین‌شات 3" width="300" />
-<img src="release/Screenshot_login.png" alt="اسکرین‌شات 4" width="300" />
-<img src="release/Screenshot_register.png" alt="اسکرین‌شات 5" width="300" />
-<img src="release/Screenshot_orderDetailes.png" alt="اسکرین‌شات 6" width="300" />
-<img src="release/Screenshot_product.png" alt="اسکرین‌شات 7" width="300" />
-<img src="release/Screenshot_search.png" alt="اسکرین‌شات 8" width="300" />
-<img src="release/Screenshot_searchFilter.png" alt="اسکرین‌شات 9" width="300" />
-<img src="release/Screenshot_splashScreen.png" alt="اسکرین‌شات 10" width="300" />
-<img src="release/Screenshot_welcome.png" alt="اسکرین‌شات 11" width="300" />
+<img src="release/Screenshot_home.png" alt="اسکرین‌شات 1" width="200" />
+<img src="release/Screenshot_cart.png" alt="اسکرین‌شات 2" width="200" />
+<img src="release/Screenshot_checkOut.png" alt="اسکرین‌شات 3" width="200" />
+<img src="release/Screenshot_login.png" alt="اسکرین‌شات 4" width="200" />
+<img src="release/Screenshot_register.png" alt="اسکرین‌شات 5" width="200" />
+<img src="release/Screenshot_orderDetailes.png" alt="اسکرین‌شات 6" width="200" />
+<img src="release/Screenshot_product.png" alt="اسکرین‌شات 7" width="200" />
+<img src="release/Screenshot_search.png" alt="اسکرین‌شات 8" width="200" />
+<img src="release/Screenshot_searchFilter.png" alt="اسکرین‌شات 9" width="200" />
+<img src="release/Screenshot_splashScreen.png" alt="اسکرین‌شات 10" width="200" />
+<img src="release/Screenshot_welcome.png" alt="اسکرین‌شات 11" width="200" />
 </div>
 
 ## نحوه استفاده
@@ -70,17 +70,17 @@ This project is built with Flutter version 3.27.1.
 ## Screenshots
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-<img src="release/Screenshot_home.png" alt="Screenshot 1" width="300" />
-<img src="release/Screenshot_cart.png" alt="Screenshot 2" width="300" />
-<img src="release/Screenshot_checkOut.png" alt="Screenshot 3" width="300" />
-<img src="release/Screenshot_login.png" alt="Screenshot 4" width="300" />
-<img src="release/Screenshot_register.png" alt="Screenshot 5" width="300" />
-<img src="release/Screenshot_orderDetailes.png" alt="Screenshot 6" width="300" />
-<img src="release/Screenshot_product.png" alt="Screenshot 7" width="300" />
-<img src="release/Screenshot_search.png" alt="Screenshot 8" width="300" />
-<img src="release/Screenshot_searchFilter.png" alt="Screenshot 9" width="300" />
-<img src="release/Screenshot_splashScreen.png" alt="Screenshot 10" width="300" />
-<img src="release/Screenshot_welcome.png" alt="Screenshot 11" width="300" />
+<img src="release/Screenshot_home.png" alt="Screenshot 1" width="200" />
+<img src="release/Screenshot_cart.png" alt="Screenshot 2" width="200" />
+<img src="release/Screenshot_checkOut.png" alt="Screenshot 3" width="200" />
+<img src="release/Screenshot_login.png" alt="Screenshot 4" width="200" />
+<img src="release/Screenshot_register.png" alt="Screenshot 5" width="200" />
+<img src="release/Screenshot_orderDetailes.png" alt="Screenshot 6" width="200" />
+<img src="release/Screenshot_product.png" alt="Screenshot 7" width="200" />
+<img src="release/Screenshot_search.png" alt="Screenshot 8" width="200" />
+<img src="release/Screenshot_searchFilter.png" alt="Screenshot 9" width="200" />
+<img src="release/Screenshot_splashScreen.png" alt="Screenshot 10" width="200" />
+<img src="release/Screenshot_welcome.png" alt="Screenshot 11" width="200" />
 </div>
 
 ## How to Use
