@@ -33,7 +33,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   _onChangeCurrentStageEvent(ChangeCurrentStageEvent event, Emitter<OrderState> emit) async {
-    emit(state.copyWith(newStatus: Status.LOADING, newCurrentCategory: event.categoryId));
+    emit(state.copyWith(newStatus: Status.LOADING, newCurrentCategory: event.categoryIndex));
     final DataState<List<OrderEntity>> result = await getOrdersByStage(event.categoryId);
     if (result is DataSuccess) {
       emit(state.copyWith(newOrders: result.data, newStatus: Status.SUCCESS));

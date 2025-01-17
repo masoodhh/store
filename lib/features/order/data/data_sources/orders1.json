@@ -1,50 +1,54 @@
 [
   {
-    "id": 3,
-    "title": "Order #12347",
-    "image": "lib/assets/images/fruit/fruits.png",
-    "orderStatuses": [
+    "id": 8,
+    "title": "Order 2",
+    "products": [
+      {
+        "product": {
+          "id": 2,
+          "title": "Orange",
+          "avatar": "lib/assets/images/fruit/orange.jpg",
+          "price": "2450.00",
+          "description": "Sweet and tangy oranges, packed with vitamin C."
+        },
+        "count": 3
+      },
+      {
+        "product": {
+          "id": 4,
+          "title": "Cherry",
+          "avatar": "lib/assets/images/fruit/gilas.png",
+          "price": "3000.00",
+          "description": "Sweet and succulent cherries, a delightful treat."
+        },
+        "count": 2
+      }
+    ],
+    "stages": [
       {
         "title": "Order Placed",
-        "dateTime": "2025-01-03T10:15:00",
-        "description": "Your order has been placed successfully.",
-        "status": true
+        "description": "Your order has been successfully placed and is awaiting confirmation.",
+        "date": "2025-01-15T17:32:28.341913Z"
       },
       {
         "title": "Order Confirmed",
-        "dateTime": "2025-01-03T12:45:00",
-        "description": "Your order has been confirmed.",
-        "status": true
+        "description": "Your order has been reviewed and confirmed by our team.",
+        "date": "2025-02-15T17:32:28.341913Z"
+      },
+      {
+        "title": "Preparing Your Order",
+        "description": "Your product is being prepared and packaged.",
+        "date": null
       },
       {
         "title": "Order Shipped",
-        "dateTime": "2025-01-04T08:30:00",
-        "description": "Your order has been shipped.",
-        "status": false
+        "description": "Your order has been handed over to the courier or shipping company.",
+        "date": null
       },
       {
         "title": "Order Delivered",
-        "dateTime": "2025-01-05T14:00:00",
-        "description": "Your order is yet to be delivered.",
-        "status": false
-      }
-    ],
-    "products": [
-      {
-        "id": 105,
-        "image": "lib/assets/images/fruit/gilas.png",
-        "title": "Cherry",
-        "description": "Juicy and sweet cherries.",
-        "price": 25.0,
-        "count": 1
-      },
-      {
-        "id": 106,
-        "image": "lib/assets/images/fruit/apple.png",
-        "title": "Apple",
-        "description": "Crisp and delicious apple.",
-        "price": 35.0,
-        "count": 2
+        "description": "Your order has been successfully delivered to you.",
+        "date": null
       }
     ]
   }

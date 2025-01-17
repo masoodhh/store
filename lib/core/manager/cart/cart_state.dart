@@ -2,7 +2,7 @@ part of 'cart_bloc.dart';
 
 class CartState {
   Status status;
-  List<CartEntity> cart = [];
+  List<ProductEntity> cart = [];
   double totalPrice;
   int cart_category;
   StateMessage? message;
@@ -23,7 +23,7 @@ class CartState {
 
   CartState copyWith(
       {Status? newStatus,
-      List<CartEntity>? newCart,
+      List<ProductEntity>? newCart,
       double? newTotalPrice,
       int? newCartCategory,
       StateMessage? newMessage}) {

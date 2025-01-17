@@ -83,7 +83,6 @@ class _PageWrapperState extends State<PageWrapper> {
                 _buildBottomNavItem(0, _pageController, state == 0, Icons.home, "Home"),
                 _buildBottomNavItem(1, _pageController, state == 1, Icons.list, "Orders"),
                 _buildBottomNavItem(2, _pageController, state == 2, Icons.shopping_cart, "My Cart"),
-                _buildBottomNavItem(3, _pageController, state == 3, Icons.search, "Search"),
               ],
             );
           },

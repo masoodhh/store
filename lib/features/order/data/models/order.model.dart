@@ -7,11 +7,16 @@ class OrderModel extends OrderEntity {
   OrderModel({
     required super.id,
     required super.title,
-    required super.image,
+    // required super.image,
     required super.orderStages,
     required super.products,
-    required super.totalPrice,
-  });
+    // required super.totalPrice,
+  }) : super(
+          image: products[0].image, // یا هر مقدار پیش‌فرض دیگر
+          totalPrice: products
+              .map((product) => product.price * product.count)
+              .reduce((a, b) => a + b), // محاسبه قیمت کل
+        );
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     final products = (json['products'] as List<dynamic>)
@@ -20,13 +25,21 @@ class OrderModel extends OrderEntity {
     return OrderModel(
       id: json['id'] as int,
       title: json['title'] as String,
-      image: json['products'][0]['product']['avatar'] as String,
+      // image: json['products'][0]['product']['avatar'] as String,
       products: products,
       orderStages: (json['stages'] as List<dynamic>)
           .map((jsonData) => OrderStagesModel.fromJson(jsonData as Map<String, dynamic>))
           .toList(),
-      totalPrice: products.map((product) => product.price * product.count).reduce((a, b) => a + b),
+      // totalPrice: products.map((product) => product.price * product.count).reduce((a, b) => a + b),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'user_id': 1,
+      'products_w': products.map((e) => {"id": e.id, "count": e.count}).toList(),
+    };
   }
 }
 

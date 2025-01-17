@@ -1,0 +1,53 @@
+{
+  "id": 1,
+  "title": "Order 1",
+  "products": [
+    {
+      "product": {
+        "id": 1,
+        "title": "Apple",
+        "avatar": "lib/assets/images/fruit/apple.png",
+        "price": "1999.00",
+        "description": "A fresh and juicy red apple, perfect for a healthy snack."
+      },
+      "count": 2
+    },
+    {
+      "product": {
+        "id": 3,
+        "title": "Lemon",
+        "avatar": "lib/assets/images/fruit/limo.png",
+        "price": "3500.00",
+        "description": "Sour and refreshing lemons, ideal for cooking and drinks."
+      },
+      "count": 1
+    }
+  ],
+  "stages": [
+    {
+      "title": "Order Placed",
+      "description": "Your order has been successfully placed and is awaiting confirmation.",
+      "date": "2025-01-15T17:32:28.341913Z"
+    },
+    {
+      "title": "Order Confirmed",
+      "description": "Your order has been reviewed and confirmed by our team.",
+      "date": "2025-02-15T17:32:28.341913Z"
+    },
+    {
+      "title": "Preparing Your Order",
+      "description": "Your product is being prepared and packaged.",
+      "date": "2025-03-15T17:32:28.341913Z"
+    },
+    {
+      "title": "Order Shipped",
+      "description": "Your order has been handed over to the courier or shipping company.",
+      "date": null
+    },
+    {
+      "title": "Order Delivered",
+      "description": "Your order has been successfully delivered to you.",
+      "date": null
+    }
+  ]
+}

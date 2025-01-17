@@ -3,25 +3,25 @@ part of 'cart_bloc.dart';
 abstract class CartEvent {}
 
 class addProduct extends CartEvent {
-  CartEntity product;
+  ProductEntity product;
 
   addProduct(this.product);
 }
 
 class removeProduct extends CartEvent {
-  CartEntity product;
+  ProductEntity product;
 
   removeProduct(this.product);
 }
 
 class increamentProduct extends CartEvent {
-  CartEntity product;
+  ProductEntity product;
 
   increamentProduct(this.product);
 }
 
 class decreaseProduct extends CartEvent {
-  CartEntity product;
+  ProductEntity product;
 
   decreaseProduct(this.product);
 }

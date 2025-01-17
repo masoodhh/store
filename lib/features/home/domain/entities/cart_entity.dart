@@ -1,5 +1,5 @@
 /*
-class CartEntity {
+class ProductEntity {
   final int id;
   final String image;
   final String title;
@@ -7,7 +7,7 @@ class CartEntity {
   final double price;
   int count;
 
-  CartEntity(
+  ProductEntity(
       {required this.id,
       required this.image,
       required this.title,
@@ -15,11 +15,11 @@ class CartEntity {
       required this.price,
       this.count = 0});
 
-  CartEntity copyWith({
+  ProductEntity copyWith({
     double? price,
     int? count,
   }) {
-    return CartEntity(
+    return ProductEntity(
       id: id,
       image: image,
       title: title,

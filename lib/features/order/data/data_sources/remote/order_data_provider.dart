@@ -13,10 +13,10 @@ import '../../../../product/data/models/product_detailes_model.dart';
 class OrderDataProviderRemote {
   Dio dio = Dio();
 
-  Future<DataState> addOrder(OrderEntity order) async {
+  Future<DataState<bool>> addOrder(OrderModel order) async {
     try {
       final response = await dio.post(
-        '${Constants.API_URL}/oders/',
+        '${Constants.API_URL}/orders/',
         data: order.toJson(),
         options: Options(
           headers: {
@@ -27,7 +27,7 @@ class OrderDataProviderRemote {
       if (response.statusCode == 200) {
         logger.w(response.data);
         OrderModel order = OrderModel.fromJson(response.data);
-        return DataSuccess(order);
+        return DataSuccess(true);
       } else {
         return DataFailed(response.statusMessage);
       }
@@ -107,7 +107,7 @@ class OrderDataProviderRemote {
     }
   }
 
-  Future<dynamic> getOrderById(int orderId) async {
+  Future<DataState<OrderModel>> getOrderById(int orderId) async {
     try {
       final response = await dio.get(
         '${Constants.API_URL}/oders/$orderId',

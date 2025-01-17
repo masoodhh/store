@@ -181,6 +181,7 @@ class _ProductState extends State<Product> {
               return SizedBox(
                 width: double.infinity,
                 child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: state.reviews!.length,

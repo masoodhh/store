@@ -1,7 +1,7 @@
 import 'package:store/features/home/domain/entities/product_entity.dart';
 
 class OrderEntity {
-  final int id;
+  final int? id;
   final String title;
   final String image;
   final List<OrderStages> orderStages;
@@ -17,13 +17,7 @@ class OrderEntity {
     required this.totalPrice,
   });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'user_id': 1,
-      'products_w': products.map((e) => {"id": e.id, "count": e.count}).toList(),
-    };
-  }
+
 }
 
 class OrderStages {

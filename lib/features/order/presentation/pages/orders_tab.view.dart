@@ -34,10 +34,9 @@ class _OrdersTabState extends State<OrdersTab> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 30),
-            HeaderWidget(),
+            const HeaderWidget(),
             SpacerV(20),
             _buildCategories(),
-            SpacerV(20),
             _buildOrders(),
           ],
         ),
@@ -51,9 +50,9 @@ class _OrdersTabState extends State<OrdersTab> {
       builder: (context, state) {
         return Row(
           children: [
-            _buildCategoryWidget(0, "All Orders", state.currentCategory == 0),
-            _buildCategoryWidget(2, "Pending", state.currentCategory == 1),
-            _buildCategoryWidget(4, "Processing", state.currentCategory == 2),
+            _buildCategoryWidget(0, 0, "All Orders", state.currentCategory == 0),
+            _buildCategoryWidget(1, 2, "Pending", state.currentCategory == 1),
+            _buildCategoryWidget(2, 4, "Processing", state.currentCategory == 2),
           ],
         );
         if (state.status == Status.SUCCESS) {
@@ -65,11 +64,12 @@ class _OrdersTabState extends State<OrdersTab> {
     );
   }
 
-  Widget _buildCategoryWidget(int id, String title, bool selected) {
+  Widget _buildCategoryWidget(int index, int id, String title, bool selected) {
     return Expanded(
       child: InkWell(
         onTap: () {
-          BlocProvider.of<OrderBloc>(context).add(ChangeCurrentStageEvent(categoryId: id));
+          BlocProvider.of<OrderBloc>(context)
+              .add(ChangeCurrentStageEvent(categoryId: id, categoryIndex: index));
         },
         child: Container(
           margin: const EdgeInsets.only(right: 10),
@@ -95,19 +95,27 @@ class _OrdersTabState extends State<OrdersTab> {
   Widget _buildOrders() {
     return BlocBuilder<OrderBloc, OrderState>(
       builder: (context, state) {
-        return ListView(shrinkWrap: true, physics: NeverScrollableScrollPhysics(), children: [
-          for (OrderEntity order in state.orders)
-            InkWell(
+        return ListView.builder(
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          // حذف padding پیش‌فرض
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: state.orders.length,
+          // تعداد آیتم‌ها
+          itemBuilder: (context, index) {
+            final order = state.orders[index]; // دریافت هر آیتم
+            return InkWell(
               onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OrderDetailsPage(
-                      orderEntity: order,
-                    ),
-                  )),
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderDetailsPage(
+                    orderEntity: order,
+                  ),
+                ),
+              ),
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.all(15),
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: MyColors.primaryBackgroundColor,
@@ -121,12 +129,14 @@ class _OrdersTabState extends State<OrdersTab> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                          image:Constants.DATA_SOURCE==0? AssetImage(order.image):NetworkImage(order.image),
+                          image: Constants.DATA_SOURCE == 0
+                              ? AssetImage(order.image)
+                              : NetworkImage(order.image),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: SizedBox(
                         height: 100,
@@ -136,35 +146,52 @@ class _OrdersTabState extends State<OrdersTab> {
                           children: [
                             Text(
                               order.title,
-                              style: TextStyle(color: MyColors.primaryColor, fontSize: 20),
+                              style: const TextStyle(
+                                color: MyColors.primaryColor,
+                                fontSize: 20,
+                              ),
                             ),
                             Text(
-                              DateFormat('yyyy/MM/dd').format(order.orderStages
-                                  .lastWhere(
-                                    (element) => element.status,
-                                  )
-                                  .dateTime!),
-                              style: TextStyle(color: Colors.grey, fontSize: 15),
+                              DateFormat('yyyy/MM/dd').format(
+                                order.orderStages
+                                    .lastWhere(
+                                      (element) => element.status,
+                                    )
+                                    .dateTime!,
+                              ),
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
                             ),
                             RichText(
                               text: TextSpan(
                                 text: "\$${order.totalPrice}",
-                                style: TextStyle(color: Colors.orange, fontSize: 18),
+                                style: const TextStyle(
+                                  color: Colors.orange,
+                                  fontSize: 18,
+                                ),
                                 children: const [
                                   TextSpan(
                                     text: "/Kg",
-                                    style: TextStyle(color: Colors.grey, fontSize: 15),
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.grey[300],
@@ -176,7 +203,7 @@ class _OrdersTabState extends State<OrdersTab> {
                                 (element) => element.status,
                               )
                               .title,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: MyColors.primaryColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -187,8 +214,9 @@ class _OrdersTabState extends State<OrdersTab> {
                   ],
                 ),
               ),
-            ),
-        ]);
+            );
+          },
+        );
       },
     );
   }

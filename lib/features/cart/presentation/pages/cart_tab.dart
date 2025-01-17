@@ -8,6 +8,7 @@ import '../../../../core/params/constants.dart';
 import '../../../../core/widgets/header.widget.dart';
 import '../../../../core/widgets/spacer.widget.dart';
 import '../../../home/domain/entities/cart_entity.dart';
+import '../../../home/domain/entities/product_entity.dart';
 import 'check_out_page.dart';
 
 class CartTab extends StatefulWidget {
@@ -53,14 +54,14 @@ class _CartTabState extends State<CartTab> {
           closeWhenOpened: true,
           closeWhenTapped: true,
           child: ListView(shrinkWrap: true, physics: const NeverScrollableScrollPhysics(), children: [
-            for (CartEntity cart in state.cart) _build_list_item(cart, context),
+            for (ProductEntity cart in state.cart) _build_list_item(cart, context),
           ]),
         );
       },
     );
   }
 
-  Widget _build_list_item(CartEntity cart, BuildContext context) {
+  Widget _build_list_item(ProductEntity cart, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       // padding: EdgeInsets.all(15),

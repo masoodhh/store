@@ -38,8 +38,8 @@ class OrderRepositoryImpl implements OrderRepository {
   }
 
   @override
-  Future<DataState<bool>> addOrder(OrderEntity orderEntity) async {
-    final DataState<bool> result = await dataProvider.addOrder(orderEntity);
+  Future<DataState<bool>> addOrder(OrderModel orderModel) async {
+    final DataState<bool> result = await dataProvider.addOrder(orderModel);
     if (result is DataSuccess) {
       return DataSuccess(true);
     } else {

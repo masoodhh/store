@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-import '../../../features/home/domain/entities/cart_entity.dart';
+import '../../../features/home/domain/entities/product_entity.dart';
 import '../../params/params.dart';
 
 part 'cart_event.dart';
@@ -90,7 +90,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             }
             return p;
           })
-          .whereType<CartEntity>()
+          .whereType<ProductEntity>()
           .toList();
       double totalPrice = 0;
       for (var element in cart) {
