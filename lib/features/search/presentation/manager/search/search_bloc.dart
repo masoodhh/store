@@ -64,7 +64,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   _onChangeSearchPriceEvent(ChangeSearchPriceEvent event, Emitter<SearchState> emit) {
     emit(state.copyWith(
-        newSearchFilter: SearchFilter.copyWith(minPrice: event.minPrice, maxPrice: event.maxPrice)));
+        newSearchFilter: SearchFilter.copyWith(minPrice:double.parse( event.minPrice.toStringAsFixed(2)), maxPrice: double.parse( event.maxPrice.toStringAsFixed(2)))));
   }
 
   _onChooseRecentSearchEvent(ChooseRecentSearchEvent event, Emitter<SearchState> emit) {

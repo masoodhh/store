@@ -5,12 +5,12 @@ import '../entities/category_entity.dart';
 import '../repositories/home.repository.dart';
 
 class GetCategoriesUsecase extends NoParamUseCase<DataState<List<CategoryEntity>>> {
-  final HomeRepository homeProductsRepository;
+  final HomeRepository homeRepository;
 
-  GetCategoriesUsecase(this.homeProductsRepository);
+  GetCategoriesUsecase(this.homeRepository);
 
   @override
   Future<DataState<List<CategoryEntity>>> call() {
-    return homeProductsRepository.fetchHomeCategories();
+    return homeRepository.fetchHomeCategories();
   }
 }

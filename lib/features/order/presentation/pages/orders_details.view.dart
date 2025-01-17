@@ -6,6 +6,7 @@ import 'package:store/features/home/domain/entities/product_entity.dart';
 import 'package:store/features/order/domain/entities/order.entity.dart';
 
 import '../../../../core/params/colors.dart';
+import '../../../../core/params/constants.dart';
 
 class OrderDetailsPage extends StatefulWidget {
   const OrderDetailsPage({required this.orderEntity, super.key});
@@ -75,7 +76,7 @@ Widget _buildBody(BuildContext context, OrderEntity orderEntity) {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            _buildDetails(orderEntity.orderStatuses),
+            _buildDetails(orderEntity.orderStages),
             SizedBox(
               height: 20,
             ),
@@ -87,7 +88,7 @@ Widget _buildBody(BuildContext context, OrderEntity orderEntity) {
   );
 }
 
-Widget _buildDetails(List<OrderStatus> orderStatuses) {
+Widget _buildDetails(List<OrderStages> orderStatuses) {
   return Container(
     padding: const EdgeInsets.all(20),
     width: double.infinity,
@@ -233,7 +234,7 @@ _buildProductItem(ProductEntity product) {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
-              image: AssetImage(product.image),
+              image: Constants.DATA_SOURCE==0?AssetImage(product.image):NetworkImage(product.image),
               fit: BoxFit.cover,
             ),
           ),

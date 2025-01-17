@@ -13,13 +13,13 @@ part 'order_event.dart';
 part 'order_state.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
-  final GetOrdersByCategoryUsecase getOrdersByCategory = locator();
+  final GetOrdersByStageUsecase getOrdersByStage = locator();
   final GetOrdersUsecase getOrdersUsecase = locator();
 
   OrderBloc() : super(OrderState.initial()) {
     // * events
     on<InitiaclEvent>((event, emit) => _onInitiaclEvent(event, emit));
-    on<ChangeCurrentCategoryEvent>((event, emit) => _onChangeCurrentCategoryEvent(event, emit));
+    on<ChangeCurrentStageEvent>((event, emit) => _onChangeCurrentStageEvent(event, emit));
   }
 
   _onInitiaclEvent(InitiaclEvent event, Emitter<OrderState> emit) async {
@@ -32,9 +32,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     }
   }
 
-  _onChangeCurrentCategoryEvent(ChangeCurrentCategoryEvent event, Emitter<OrderState> emit) async {
+  _onChangeCurrentStageEvent(ChangeCurrentStageEvent event, Emitter<OrderState> emit) async {
     emit(state.copyWith(newStatus: Status.LOADING, newCurrentCategory: event.categoryId));
-    final DataState<List<OrderEntity>> result = await getOrdersByCategory(event.categoryId);
+    final DataState<List<OrderEntity>> result = await getOrdersByStage(event.categoryId);
     if (result is DataSuccess) {
       emit(state.copyWith(newOrders: result.data, newStatus: Status.SUCCESS));
     } else {

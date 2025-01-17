@@ -4,7 +4,7 @@ class OrderEntity {
   final int id;
   final String title;
   final String image;
-  final List<OrderStatus> orderStatuses;
+  final List<OrderStages> orderStages;
   final List<ProductEntity> products;
   final double totalPrice;
 
@@ -12,21 +12,29 @@ class OrderEntity {
     required this.id,
     required this.title,
     required this.image,
-    required this.orderStatuses,
+    required this.orderStages,
     required this.products,
     required this.totalPrice,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'user_id': 1,
+      'products_w': products.map((e) => {"id": e.id, "count": e.count}).toList(),
+    };
+  }
 }
 
-class OrderStatus {
+class OrderStages {
   final String title;
   final DateTime? dateTime;
   final String description;
   final bool status;
 
-  OrderStatus({
+  OrderStages({
     required this.title,
-     this.dateTime,
+    this.dateTime,
     required this.description,
     required this.status,
   });

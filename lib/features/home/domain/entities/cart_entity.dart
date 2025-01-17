@@ -1,3 +1,4 @@
+/*
 class CartEntity {
   final int id;
   final String image;
@@ -28,3 +29,4 @@ class CartEntity {
     );
   }
 }
+*/

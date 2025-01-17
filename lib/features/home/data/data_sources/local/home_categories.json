@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "FastFood"
+  },
+  {
+    "id": 2,
+    "title": "Vegetables"
+  },
+  {
+    "id": 3,
+    "title": "Fruits"
+  },
+  {
+    "id": 4,
+    "title": "Dairy"
+  },
+  {
+    "id": 5,
+    "title": "Meat"
+  },
+  {
+    "id": 6,
+    "title": "Bakery"
+  },
+  {
+    "id": 7,
+    "title": "Snacks"
+  }
+]

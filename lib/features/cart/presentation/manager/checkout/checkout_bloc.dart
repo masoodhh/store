@@ -3,9 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:store/core/params/params.dart';
+import 'package:store/features/order/presentation/manager/order/order_bloc.dart';
 
 import 'package:store/logger.dart';
 
+import '../../../../../core/manager/cart/cart_bloc.dart';
+import '../../../../../main.dart';
+import '../../../../home/domain/entities/cart_entity.dart';
+import '../../../../order/domain/entities/order.entity.dart';
+import '../../../../order/domain/use_cases/add_order.usecase.dart';
 import '../../../domin/entities/address_entity.dart';
 import '../../../domin/entities/payment_card_entity.dart';
 
@@ -14,6 +20,7 @@ part 'checkout_event.dart';
 part 'checkout_state.dart';
 
 class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
+  final AddOrderUsecase addOrderUsecase=locator();
   CheckoutBloc() : super(CheckoutState.init()) {
     // * events
 
@@ -27,9 +34,12 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   }
 
   void _confirmCheckoutEvent(confirmCheckoutEvent event, Emitter<CheckoutState> emit) async {
-   emit(CheckoutState.init());
+    emit(CheckoutState.init());
+    final cartBloc=locator<CartBloc>();
+    OrderEntity order=OrderEntity(products: cartBloc.state.cart, address: state.addresses.firstWhere((element) => element.isSelected), paymentCard: state.paymentCards.firstWhere((element) => element.isSelected));
+    final result=await addOrderUsecase.call(cartBloc.state., orderBloc.state.);
     // TODO:
-    /*  CartBloc cartBloc = locator();
+    /*CartBloc cartBloc = locator();
     final List<CartEntity> products = cartBloc.state.cart;
     final AddressEntity addressEntity = state.addresses.firstWhere(
       (element) => element.isSelected,
@@ -39,8 +49,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     );
     final confirm = ConfirmCheckoutUseCase(
         OrderEntity(products: products, address: addressEntity, paymentCard: paymentCardEntity));
-  */
-  }
+  */}
 
   void _onInitializeEvent(initializeEvent event, Emitter<CheckoutState> emit) async {
     emit(state.copyWith(newAddressStatus: Status.LOADING));

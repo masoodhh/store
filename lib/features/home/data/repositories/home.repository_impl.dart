@@ -1,52 +1,51 @@
 import 'package:store/core/resources/data_state.dart';
-import 'package:store/features/order/data/models/order.model.dart';
+import 'package:store/features/home/data/models/product_model.dart';
 import 'package:store/features/search/presentation/manager/search/search_bloc.dart';
 
 import '../../../../logger.dart';
+import '../../../product/domin/entities/product_detail_entity.dart';
 import '../../domain/entities/category_entity.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/repositories/home.repository.dart';
-import '../data_sources/data_provider.dart';
 import '../models/category_model.dart';
-import '../models/home_products_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeRepositoryImplLocal implements HomeRepository {
+class HomeRepositoryImpl implements HomeRepository {
+  final apiProvider;
+
+  HomeRepositoryImpl(this.apiProvider);
+
   @override
   Future<DataState<List<ProductEntity>>> fetchHomeProducts({required int categoryId}) async {
-    try {
-      final result = await DataProvider().homeGetProductsByCategory(category_id: categoryId);
-      // List  products = HomeProductsModel.fromJson(result).products!;
-      return DataSuccess(HomeProductsModel.fromJson(result).products!);
-    } catch (error) {
-      return DataFailed("error is $error");
+    final DataState<List<ProductModel>> result =
+        await apiProvider.homeGetProductsByCategory(category_id: categoryId);
+    if (result is DataSuccess) {
+      final List<ProductEntity> products = result.data! as List<ProductEntity>;
+      return DataSuccess(products);
+    } else {
+      return result;
     }
   }
 
   @override
   Future<DataState<List<CategoryEntity>>> fetchHomeCategories() async {
-    try {
-
-      final result = await DataProvider().homeGetCategories();
-      List<CategoryEntity> categories = List<CategoryEntity>.from(
-        result["categories"].map((category) => CategoryModel.fromjson(category)).toList(),
-      );
-
+    final DataState<List<CategoryModel>> result = await apiProvider.homeGetCategories();
+    if (result is DataSuccess) {
+      final List<CategoryEntity> categories = result.data! as List<CategoryEntity>;
       return DataSuccess(categories);
-    } catch (error) {
-      return DataFailed("error is $error");
+    } else {
+      return result;
     }
   }
 
   @override
   Future<DataState<List<ProductEntity>>> getSearchedProducts({required SearchFilter searchFilter}) async {
-    // TODO: implement getSearchedProducts
-    try {
-      final result = await DataProvider().homeGetProductsBySearch(searchFilter: searchFilter);
-      // List  products = HomeProductsModel.fromJson(result).products!;
-      return DataSuccess(HomeProductsModel.fromJson(result).products!);
-    } catch (error) {
-      return DataFailed("error is $error");
+    final result = await apiProvider.homeGetProductsBySearch(searchFilter: searchFilter);
+    if (result is DataSuccess) {
+      final List<ProductEntity> products = result.data! as List<ProductEntity>;
+      return DataSuccess(products);
+    } else {
+      return result;
     }
   }
 
@@ -76,5 +75,16 @@ class HomeRepositoryImplLocal implements HomeRepository {
 
     // ذخیره لیست به‌روزرسانی‌شده
     await prefs.setStringList("recent_searches", currentSearches);
+  }
+
+  @override
+  Future<DataState<ProductDetailesEntity>> getProductDetial({required int product_id}) async {
+    final result = await apiProvider.getProductDetiales(product_id: product_id);
+    if (result is DataSuccess) {
+      final ProductDetailesEntity productDetailesEntity =result.data! as ProductDetailesEntity;
+      return DataSuccess(productDetailesEntity);
+    } else {
+      return result;
+    }
   }
 }

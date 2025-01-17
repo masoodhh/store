@@ -13,11 +13,14 @@ class removeProduct extends CartEvent {
 
   removeProduct(this.product);
 }
+
 class increamentProduct extends CartEvent {
   CartEntity product;
 
   increamentProduct(this.product);
-}class decreaseProduct extends CartEvent {
+}
+
+class decreaseProduct extends CartEvent {
   CartEntity product;
 
   decreaseProduct(this.product);

@@ -1,4 +1,3 @@
-
 import '../../domain/entities/category_entity.dart';
 
 /// category_id : "Development"
@@ -7,8 +6,9 @@ import '../../domain/entities/category_entity.dart';
 class CategoryModel extends CategoryEntity {
   CategoryModel({required super.id, required super.title});
 
-  factory CategoryModel.fromjson(Map<String, dynamic> json) => CategoryModel(
-        id: json['category_id'],
-        title: json['category_title'],
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+        id: json['id'],
+        title: json['title'],
       );
+
 }

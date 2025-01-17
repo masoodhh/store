@@ -6,6 +6,7 @@ import 'package:store/features/product/presentation/pages/product.dart';
 import 'package:store/core/params/params.dart';
 
 import '../../../../core/params/colors.dart';
+import '../../../../core/params/constants.dart';
 import '../../../../core/widgets/header.widget.dart';
 import '../../../../core/widgets/spacer.widget.dart';
 import '../../domain/entities/product_entity.dart';
@@ -180,11 +181,17 @@ class _HomeTabState extends State<HomeTab> {
           children: [
             Hero(
               tag: "product${product.id}",
-              child: Image.asset(
-                product.image,
-                height: 150,
-                fit: BoxFit.contain,
-              ),
+              child: Constants.DATA_SOURCE == 0
+                  ? Image.asset(
+                      product.image,
+                      height: 150,
+                      fit: BoxFit.contain,
+                    )
+                  : Image.network(
+                      product.image,
+                      height: 150,
+                      fit: BoxFit.contain,
+                    ),
             ),
             Text(
               product.title,
@@ -233,5 +240,3 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 }
-
-

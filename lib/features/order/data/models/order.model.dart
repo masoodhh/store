@@ -8,30 +8,30 @@ class OrderModel extends OrderEntity {
     required super.id,
     required super.title,
     required super.image,
-    required super.orderStatuses,
+    required super.orderStages,
     required super.products,
     required super.totalPrice,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     final products = (json['products'] as List<dynamic>)
-        .map((jsonData) => ProductModel.fromJson(jsonData as Map<String, dynamic>))
+        .map((jsonData) => ProductModel.fromJsonInOrders(jsonData as Map<String, dynamic>))
         .toList();
     return OrderModel(
       id: json['id'] as int,
       title: json['title'] as String,
-      image: json['image'] as String,
+      image: json['products'][0]['product']['avatar'] as String,
       products: products,
-      orderStatuses: (json['orderStatuses'] as List<dynamic>)
-          .map((jsonData) => OrderStatusModel.fromJson(jsonData as Map<String, dynamic>))
+      orderStages: (json['stages'] as List<dynamic>)
+          .map((jsonData) => OrderStagesModel.fromJson(jsonData as Map<String, dynamic>))
           .toList(),
       totalPrice: products.map((product) => product.price * product.count).reduce((a, b) => a + b),
     );
   }
 }
 
-class OrderStatusModel extends OrderStatus {
-  OrderStatusModel({
+class OrderStagesModel extends OrderStages {
+  OrderStagesModel({
     required String title,
     DateTime? dateTime,
     required String description,
@@ -43,12 +43,12 @@ class OrderStatusModel extends OrderStatus {
           status: status,
         );
 
-  factory OrderStatusModel.fromJson(Map<String, dynamic> json) {
-    return OrderStatusModel(
+  factory OrderStagesModel.fromJson(Map<String, dynamic> json) {
+    return OrderStagesModel(
       title: json['title'] as String,
-      dateTime: json['dateTime'] != "" ? DateTime.parse(json['dateTime'] as String) : null,
+      dateTime: json['date'] != null ? DateTime.parse(json['date'] as String) : null,
       description: json['description'] as String,
-      status: json['status'] as bool,
+      status: json['date'] != null,
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
 
 import '../../../../core/params/colors.dart';
+import '../../../../core/params/constants.dart';
 import '../../../../core/widgets/header.widget.dart';
 import '../../../../core/widgets/spacer.widget.dart';
 import '../../../home/domain/entities/cart_entity.dart';
@@ -27,7 +28,7 @@ class _CartTabState extends State<CartTab> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 30),
-              HeaderWidget(),
+              const HeaderWidget(),
               SpacerV(20),
               _buildCarts(),
             ],
@@ -42,7 +43,7 @@ class _CartTabState extends State<CartTab> {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         if (state.cart.isEmpty)
-          return Center(
+          return const Center(
               child: Text(
             "محصولی در سبد خرید موجود نیست.",
             textDirection: TextDirection.rtl,
@@ -51,7 +52,7 @@ class _CartTabState extends State<CartTab> {
         return SlidableAutoCloseBehavior(
           closeWhenOpened: true,
           closeWhenTapped: true,
-          child: ListView(shrinkWrap: true, physics: NeverScrollableScrollPhysics(), children: [
+          child: ListView(shrinkWrap: true, physics: const NeverScrollableScrollPhysics(), children: [
             for (CartEntity cart in state.cart) _build_list_item(cart, context),
           ]),
         );
@@ -61,7 +62,7 @@ class _CartTabState extends State<CartTab> {
 
   Widget _build_list_item(CartEntity cart, BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       // padding: EdgeInsets.all(15),
 
       child: Slidable(
@@ -88,7 +89,7 @@ class _CartTabState extends State<CartTab> {
                 BlocProvider.of<CartBloc>(context).add(removeProduct(cart));
               },
               autoClose: true,
-              backgroundColor: Color(0xFFFE4A49),
+              backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
               icon: Icons.delete,
               label: 'Delete',
@@ -97,12 +98,12 @@ class _CartTabState extends State<CartTab> {
           ],
         ),
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
           // margin: EdgeInsets.symmetric(vertical: 10),
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color:  MyColors.primaryBackgroundColor,
+            color: MyColors.primaryBackgroundColor,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -113,12 +114,12 @@ class _CartTabState extends State<CartTab> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: AssetImage(cart.image),
+                    image: Constants.DATA_SOURCE == 0 ? AssetImage(cart.image) : NetworkImage(cart.image),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: SizedBox(
                   height: 100,
@@ -128,13 +129,13 @@ class _CartTabState extends State<CartTab> {
                     children: [
                       Text(
                         cart.title,
-                        style: TextStyle(color: MyColors.primaryColor, fontSize: 20),
+                        style: const TextStyle(color: MyColors.primaryColor, fontSize: 20),
                       ),
                       RichText(
                         text: TextSpan(
                           text: "\$${cart.price}",
-                          style: TextStyle(color: Colors.orange, fontSize: 18),
-                          children: [
+                          style: const TextStyle(color: Colors.orange, fontSize: 18),
+                          children: const [
                             TextSpan(
                               text: "/Kg",
                               style: TextStyle(color: Colors.grey, fontSize: 15),
@@ -146,7 +147,7 @@ class _CartTabState extends State<CartTab> {
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               SizedBox(
                 height: 100,
                 child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -167,7 +168,7 @@ class _CartTabState extends State<CartTab> {
                     ),
                     child: Text(
                       cart.count.toString(),
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                   GestureDetector(
@@ -191,28 +192,29 @@ class _CartTabState extends State<CartTab> {
   Widget _buildTotalPrice() {
     return Container(
       height: 150,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
           Container(
             height: 60,
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color:  MyColors.primaryBackgroundColor,
+              color: MyColors.primaryBackgroundColor,
             ),
             child: Center(
               child: BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
                   return Text(
                     "Total Price \$${state.totalPrice}",
-                    style: TextStyle(color: MyColors.primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        color: MyColors.primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
                   );
                 },
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {
               return InkWell(
@@ -220,13 +222,13 @@ class _CartTabState extends State<CartTab> {
                   if (!state.cart.isEmpty) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CheckOutPage()),
+                      MaterialPageRoute(builder: (context) => const CheckOutPage()),
                     );
                   }
                 },
                 child: Container(
                   height: 60,
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: MyColors.primaryColor,

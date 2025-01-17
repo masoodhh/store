@@ -48,6 +48,7 @@ dependencies:
   syncfusion_flutter_sliders: ^27.2.5
   syncfusion_flutter_charts: ^27.2.5
   intl: ^0.19.0
+  dio: ^5.7.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -105,9 +106,9 @@ flutter:
     - lib/assets/images/
     - lib/assets/
     - lib/assets/images/fruit/
-    - lib/features/home/data/data_sources/home_products.json
-    - lib/features/home/data/data_sources/home_products2.json
-    - lib/features/home/data/data_sources/home_categories.json
+    - lib/features/home/data/data_sources/local/home_products.json
+    - lib/features/home/data/data_sources/local/home_products2.json
+    - lib/features/home/data/data_sources/local/home_categories.json
     - lib/features/order/data/data_sources/orders.json
     - lib/features/order/data/data_sources/orders1.json
     - lib/features/order/data/data_sources/orders2.json

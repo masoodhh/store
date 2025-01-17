@@ -5,6 +5,7 @@ import 'package:store/features/order/presentation/manager/order/order_bloc.dart'
 import 'package:store/features/order/presentation/pages/orders_details.view.dart';
 
 import '../../../../core/params/colors.dart';
+import '../../../../core/params/constants.dart';
 import '../../../../core/params/params.dart';
 import '../../../../core/widgets/header.widget.dart';
 import '../../../../core/widgets/spacer.widget.dart';
@@ -51,8 +52,8 @@ class _OrdersTabState extends State<OrdersTab> {
         return Row(
           children: [
             _buildCategoryWidget(0, "All Orders", state.currentCategory == 0),
-            _buildCategoryWidget(1, "Pending", state.currentCategory == 1),
-            _buildCategoryWidget(2, "Processing", state.currentCategory == 2),
+            _buildCategoryWidget(2, "Pending", state.currentCategory == 1),
+            _buildCategoryWidget(4, "Processing", state.currentCategory == 2),
           ],
         );
         if (state.status == Status.SUCCESS) {
@@ -68,7 +69,7 @@ class _OrdersTabState extends State<OrdersTab> {
     return Expanded(
       child: InkWell(
         onTap: () {
-          BlocProvider.of<OrderBloc>(context).add(ChangeCurrentCategoryEvent(categoryId: id));
+          BlocProvider.of<OrderBloc>(context).add(ChangeCurrentStageEvent(categoryId: id));
         },
         child: Container(
           margin: const EdgeInsets.only(right: 10),
@@ -120,7 +121,7 @@ class _OrdersTabState extends State<OrdersTab> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                          image: AssetImage(order.image),
+                          image:Constants.DATA_SOURCE==0? AssetImage(order.image):NetworkImage(order.image),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -138,7 +139,7 @@ class _OrdersTabState extends State<OrdersTab> {
                               style: TextStyle(color: MyColors.primaryColor, fontSize: 20),
                             ),
                             Text(
-                              DateFormat('yyyy/MM/dd').format(order.orderStatuses
+                              DateFormat('yyyy/MM/dd').format(order.orderStages
                                   .lastWhere(
                                     (element) => element.status,
                                   )
@@ -170,7 +171,7 @@ class _OrdersTabState extends State<OrdersTab> {
                       ),
                       child: Center(
                         child: Text(
-                          order.orderStatuses
+                          order.orderStages
                               .lastWhere(
                                 (element) => element.status,
                               )

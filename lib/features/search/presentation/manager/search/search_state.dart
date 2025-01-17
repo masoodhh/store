@@ -65,4 +65,14 @@ class SearchFilter {
       categoryId: newSearchFilter.categoryId ?? categoryId,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'text': text,
+      'isPriceEnabled':( minPrice!=null || maxPrice !=null)? true : false,
+      'minPrice': minPrice,
+      'maxPrice': maxPrice,
+      'categoryId': categoryId == 0 ? null : categoryId,
+    };
+  }
 }

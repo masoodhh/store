@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:store/core/manager/cart/cart_bloc.dart';
 import 'package:store/core/params/params.dart';
 import 'package:store/core/params/text_styles.dart';
@@ -8,6 +9,7 @@ import 'package:store/features/search/presentation/manager/search/search_bloc.da
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import '../../../../core/params/colors.dart';
+import '../../../../core/params/constants.dart';
 import '../../../../core/widgets/spacer.widget.dart';
 import '../../../../logger.dart';
 import '../../../home/domain/entities/product_entity.dart';
@@ -207,11 +209,17 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             Hero(
               tag: "product${product.id}",
-              child: Image.asset(
-                product.image,
-                height: 150,
-                fit: BoxFit.contain,
-              ),
+              child: Constants.DATA_SOURCE == 0
+                  ? Image.asset(
+                      product.image,
+                      height: 150,
+                      fit: BoxFit.contain,
+                    )
+                  : Image.network(
+                      product.image,
+                      height: 150,
+                      fit: BoxFit.contain,
+                    ),
             ),
             Text(
               product.title,
@@ -330,8 +338,9 @@ class _SearchPageState extends State<SearchPage> {
               BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
                   return SfRangeSelector(
-                    min: 1000,
+                    min: 0,
                     max: 100000000,
+                    stepSize: 100000,
                     onChangeEnd: (SfRangeValues value) => context
                         .read<SearchBloc>()
                         .add(ChangeSearchPriceEvent(minPrice: value.start, maxPrice: value.end)),
@@ -340,6 +349,11 @@ class _SearchPageState extends State<SearchPage> {
                     enableTooltip: true,
                     inactiveColor: Colors.transparent,
                     tooltipShape: const SfPaddleTooltipShape(),
+                    tooltipTextFormatterCallback: (actualValue, formattedText) {
+                      // فرمت‌کردن عدد به‌صورت سه‌رقمی با کاما
+                      final numberFormat = NumberFormat('#,###');
+                      return numberFormat.format(actualValue);
+                    },
                     child: SizedBox(
                       height: 130,
                       child: SfCartesianChart(
