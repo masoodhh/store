@@ -46,7 +46,7 @@
 ## ارتباط با من
 
 - ایمیل: masoodyarab2@gmail.com
-- لینکدین: [masood-hasanzadeh-449a2315a](https://www.linkedin.com/in/masood-hasanzadeh-449a2315a/)
+- لینکدین: [Masood Hasanzadeh](https://www.linkedin.com/in/masood-hasanzadeh)
 - گیت‌هاب: [masoodhh](https://github.com/masoodhh)
 
 </div>
@@ -99,5 +99,5 @@ This project is built with Flutter version 3.27.1.
 ## Contact
 
 - Email: masoodyarab2@gmail.com
-- Linkedin: [masood-hasanzadeh-449a2315a](https://www.linkedin.com/in/masood-hasanzadeh-449a2315a/)
+- Linkedin: [Masood Hasanzadeh](https://www.linkedin.com/in/masood-hasanzadeh)
 - GitHub: [masoodhh](https://github.com/masoodhh)
